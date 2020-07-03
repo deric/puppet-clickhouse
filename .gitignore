@@ -25,3 +25,6 @@
 .project
 .envrc
 /inventory.yaml
+.tmp/
+.librarian/
+Puppetfile.lock
