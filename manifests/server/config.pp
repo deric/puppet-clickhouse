@@ -40,7 +40,7 @@ class clickhouse::server::config {
   }
 
   if $clickhouse::server::manage_config {
-    file { "${clickhouse::server::config_dir}/${clickhouse::server::config_file}":
+    file { "${clickhouse::server::main_dir}/${clickhouse::server::config_file}":
       content => clickhouse_config($options),
       mode    => '0664',
       owner   => $clickhouse::server::clickhouse_user,

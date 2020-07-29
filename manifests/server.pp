@@ -89,6 +89,7 @@ class clickhouse::server (
 
 # Configuration
   Boolean $manage_config                        = $clickhouse::params::manage_config,
+  Stdlib::Unixpath $main_dir                    = $clickhouse::params::main_dir,
   Stdlib::Unixpath $config_dir                  = $clickhouse::params::config_dir,
   Stdlib::Unixpath $users_dir                   = $clickhouse::params::users_dir,
   Stdlib::Unixpath $dict_dir                    = $clickhouse::params::dict_dir,

@@ -18,7 +18,7 @@ class clickhouse::server::service {
     }
 
     if $clickhouse::server::manage_config {
-      File["${clickhouse::server::config_dir}/${clickhouse::server::config_file}"] -> Service[$clickhouse::server::service_name]
+      File["${clickhouse::server::main_dir}/${clickhouse::server::config_file}"] -> Service[$clickhouse::server::service_name]
     }
 
     if $clickhouse::server::manage_systemd {
@@ -27,7 +27,7 @@ class clickhouse::server::service {
         group    => 'root',
         mode     => '0664',
         content  => epp("${module_name}/server_systemd.epp", {
-          'config' => "${clickhouse::server::config_dir}/${clickhouse::server::config_file}",
+          'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
           'user' => $clickhouse::server::clickhouse_user,
           'group' => $clickhouse::server::clickhouse_group,
         }),
@@ -40,7 +40,7 @@ class clickhouse::server::service {
         group   => $clickhouse::server::clickhouse_group,
         mode    => '0664',
         content => epp("${module_name}/server_env.epp", {
-          'config' => "${clickhouse::server::config_dir}/${clickhouse::server::config_file}",
+          'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
         }),
       }
 

@@ -62,7 +62,7 @@ describe 'clickhouse::server' do
       }
 
       it { is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service')
-        .with_content(/config=\/etc\/clickhouse-server\/conf.d\/config.xml/)
+        .with_content(/config=\/etc\/clickhouse-server\/config.xml/)
       }
 
       it { is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service')
@@ -154,7 +154,7 @@ describe 'clickhouse::server' do
 </yandex>\n"
 
       it {
-        is_expected.to contain_file('/etc/clickhouse-server/conf.d/config.xml').with(
+        is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
           mode: '0664',
           owner: 'clickhouse',
           group: 'clickhouse',
@@ -216,7 +216,7 @@ describe 'clickhouse::server' do
           )
         }
 
-        it { is_expected.not_to contain_file('/etc/clickhouse-server/conf.d/config.xml') }
+        it { is_expected.not_to contain_file('/etc/clickhouse-server/config.xml') }
       end
 
       context 'with keep_default_users set to false' do
@@ -248,7 +248,7 @@ describe 'clickhouse::server' do
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/conf.d/config.xml').with(
+          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
             mode: '0664',
             owner: 'clickhouse',
             group: 'clickhouse',
@@ -270,7 +270,7 @@ describe 'clickhouse::server' do
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/conf.d/config.xml').with(
+          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
             mode: '0664',
             owner: 'clickhouse',
             group: 'clickhouse',
@@ -292,7 +292,7 @@ describe 'clickhouse::server' do
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/conf.d/config.xml').with(
+          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
             mode: '0664',
             owner: 'clickhouse',
             group: 'clickhouse',
@@ -305,7 +305,7 @@ describe 'clickhouse::server' do
         let(:params) { { override_options: { 'compression' => { 'case' => { 'method' => 'zstd' } } } } }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/conf.d/config.xml').with(
+          is_expected.to contain_file('/etc/clickhouse-server/config.xml').with(
             mode: '0664',
             owner: 'clickhouse',
             group: 'clickhouse',
@@ -321,7 +321,7 @@ describe 'clickhouse::server' do
         let(:facts) { os_facts }
 
         it { is_expected.to contain_service('clickhouse-server') }
-        it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/config.xml').that_comes_before('Service[clickhouse-server]') }
+        it { is_expected.to contain_file('/etc/clickhouse-server/config.xml').that_comes_before('Service[clickhouse-server]') }
         it { is_expected.to contain_service('clickhouse-server').that_requires('Package[clickhouse-server]') }
       end
 

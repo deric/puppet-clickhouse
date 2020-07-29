@@ -22,6 +22,7 @@ class clickhouse::params {
 
 # Configuration
   $manage_config         = true
+  $main_dir              = '/etc/clickhouse-server'
   $config_dir            = '/etc/clickhouse-server/conf.d'
   $users_dir             = '/etc/clickhouse-server/users.d'
   $dict_dir              = '/etc/clickhouse-server/dict'
