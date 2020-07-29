@@ -37,6 +37,7 @@ class clickhouse::server::config {
       group   => $clickhouse::server::clickhouse_group,
       recurse => $recurse,
       purge   => $purge,
+      require => File[$clickhouse::server::main_dir],
   }
 
   if $clickhouse::server::manage_config {
