@@ -73,7 +73,7 @@ class clickhouse::server::config {
       group   => $clickhouse::server::clickhouse_group,
       mode    => '0664',
       content => epp("${module_name}/server_env.epp", {
-        'config' => "${clickhouse::server::config_dir}/${clickhouse::server::zookeeper_config_file}",
+        'config' => "${clickhouse::server::config_dir}/${clickhouse::server::config_file}",
       }),
     }
 
