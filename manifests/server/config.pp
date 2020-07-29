@@ -23,7 +23,7 @@ class clickhouse::server::config {
     $purge = false
   }
 
-  file { [ $clickhouse::server::clickhouse_datadir, $clickhouse::server::clickhouse_tmpdir ]:
+  file { [ $clickhouse::server::clickhouse_datadir, $clickhouse::server::clickhouse_tmpdir, $clickhouse::server::main_dir ]:
       ensure => 'directory',
       mode   => '0664',
       owner  => $clickhouse::server::clickhouse_user,
