@@ -48,6 +48,30 @@ describe 'clickhouse::server' do
       it { is_expected.to contain_class('clickhouse::server::config').that_notifies('Class[clickhouse::server::service]') }
     end
 
+    context 'with systemd config' do
+      let(:facts) { os_facts }
+      let(:params) do
+        {
+          manage_systemd: true,
+          config_file: 'config.xml',
+        }
+      end
+
+      it { is_expected.to contain_file('/etc/default/clickhouse-server')
+        .with_content(/config.xml/)
+      }
+
+      it { is_expected.to contain_file('/lib/systemd/system/clickhouse-server.service')
+        .with_content(/config=\$CLICKHOUSE_CONFIG/)
+      }
+
+      it { is_expected.to contain_file('/lib/systemd/system/clickhouse-server.service')
+        .with_content(/User=clickhouse/)
+        .with_content(/Group=clickhouse/)
+      }
+
+    end
+
     context 'clickhouse::server::install' do
       let(:facts) { os_facts }
 
@@ -525,5 +549,6 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/remote_servers.xml') }
     end
+
   end
 end

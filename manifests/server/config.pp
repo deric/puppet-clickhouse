@@ -67,6 +67,16 @@ class clickhouse::server::config {
         require => File[$clickhouse::server::config_dir],
       }
     }
+
+    file { '/etc/default/clickhouse-server':
+      owner   => $clickhouse::server::clickhouse_user,
+      group   => $clickhouse::server::clickhouse_group,
+      mode    => '0664',
+      content => epp("${module_name}/server_env.epp", {
+        'config' => "${clickhouse::server::config_dir}/${clickhouse::server::zookeeper_config_file}",
+      }),
+    }
+
   }
 
 }

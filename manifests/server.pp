@@ -12,7 +12,7 @@
 # @param package_name
 #   Name of Clickhouse Server package to install. Defaults to 'clickhouse-server'.
 # @param package_ensure
-#   Whether the Clickhouse Server package should be present, absent or specific version. 
+#   Whether the Clickhouse Server package should be present, absent or specific version.
 #   Valid values are 'present', 'absent' or 'x.y.z'. Defaults to 'present'.
 # @param manage_package
 #   Whether to manage Clickhouse Server package. Defaults to 'true'.
@@ -37,7 +37,7 @@
 # @param keep_default_users
 #   Specifies whether to automatically remove default users, which are specified in users.xml file. Defaults to 'false'.
 # @param override_options
-#   Hash[String, Any] of override options to pass to Clickhouse Server configuration file. 
+#   Hash[String, Any] of override options to pass to Clickhouse Server configuration file.
 # @param config_file
 #   Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.yandex/docs/en/operations/configuration_files/. Defaults to 'config.xml'
 # @param profiles_file
@@ -112,6 +112,7 @@ class clickhouse::server (
   Stdlib::Ensure::Service $service_ensure = $clickhouse::params::service_ensure,
   Boolean $service_enabled                = $clickhouse::params::service_enabled,
   Boolean $manage_service                 = $clickhouse::params::manage_service,
+  Boolean $manage_systemd                 = $clickhouse::params::manage_systemd,
   Boolean $restart                        = $clickhouse::params::restart,
 
 # Additional configuration

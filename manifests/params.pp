@@ -44,6 +44,7 @@ class clickhouse::params {
   $service_ensure  = 'running'
   $service_enabled = true
   $manage_service  = true
+  $manage_systemd  = true
   $restart         = false
 
 }
