@@ -35,6 +35,15 @@ class clickhouse::server::service {
         subscribe => File['/etc/default/clickhouse-server']
       }
 
+      file { '/etc/default/clickhouse-server':
+        owner   => $clickhouse::server::clickhouse_user,
+        group   => $clickhouse::server::clickhouse_group,
+        mode    => '0664',
+        content => epp("${module_name}/server_env.epp", {
+          'config' => "${clickhouse::server::config_dir}/${clickhouse::server::config_file}",
+        }),
+      }
+
       exec { 'reload-systemd':
         command     => 'systemctl daemon-reload',
         refreshonly => true,
