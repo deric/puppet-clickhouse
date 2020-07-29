@@ -19,6 +19,9 @@ class clickhouse::server::service {
 
     if $clickhouse::server::manage_config {
       File["${clickhouse::server::main_dir}/${clickhouse::server::config_file}"] -> Service[$clickhouse::server::service_name]
+      Service<| title == $clickhouse::server::service_name |> {
+        subscribe => File["${clickhouse::server::main_dir}/${clickhouse::server::config_file}"],
+      }
     }
 
     if $clickhouse::server::manage_systemd {
