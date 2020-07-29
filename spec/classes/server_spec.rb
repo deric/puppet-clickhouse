@@ -61,11 +61,11 @@ describe 'clickhouse::server' do
         .with_content(/config.xml/)
       }
 
-      it { is_expected.to contain_file('/lib/systemd/system/clickhouse-server.service')
+      it { is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service')
         .with_content(/config=\$CLICKHOUSE_CONFIG/)
       }
 
-      it { is_expected.to contain_file('/lib/systemd/system/clickhouse-server.service')
+      it { is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service')
         .with_content(/User=clickhouse/)
         .with_content(/Group=clickhouse/)
       }
