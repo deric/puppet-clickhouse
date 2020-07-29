@@ -1,5 +1,5 @@
 # @summary
-#   Create and manage Clickhouse profiles. 
+#   Create and manage Clickhouse profiles.
 #
 # @see https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/
 #
@@ -19,8 +19,8 @@
 #
 # @param name
 #   Name of the file with profiles configurations.
-# @param users_dir
-#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
+# @param config_dir
+#   Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
 # @param profiles_file_owner
 #   Owner of the profiles file. Defaults to 'clickhouse'.
 # @param profiles_file_group
@@ -31,14 +31,14 @@
 #   Profiles configuration.
 #
 define clickhouse::server::profiles(
-  Stdlib::Unixpath $users_dir               = $clickhouse::server::users_dir,
+  Stdlib::Unixpath $config_dir              = $clickhouse::server::config_dir,
   String $profiles_file_owner               = $clickhouse::server::clickhouse_user,
   String $profiles_file_group               = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure         = 'present',
   Hash[String, Hash[String, Any]] $profiles = {},
 ) {
 
-  file { "${users_dir}/${title}":
+  file { "${config_dir}/${title}":
     ensure  => $ensure,
     content => clickhouse_config({'profiles' => $profiles}),
     mode    => '0664',

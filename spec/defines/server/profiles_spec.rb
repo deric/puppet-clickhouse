@@ -4,7 +4,7 @@ describe 'clickhouse::server::profiles' do
   let(:title) { 'profiles.xml' }
   let(:params) do
     {
-      users_dir: '/etc/clickhouse-server/users.d',
+      config_dir: '/etc/clickhouse-server/conf.d',
       profiles_file_owner: 'clickhouse',
       profiles_file_group: 'clickhouse',
     }
@@ -22,7 +22,7 @@ describe 'clickhouse::server::profiles' do
   <profiles></profiles>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml').with_content(profiles_defaults)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/profiles.xml').with_content(profiles_defaults)
       end
 
       it 'with profiles set' do
@@ -49,7 +49,7 @@ describe 'clickhouse::server::profiles' do
 </yandex>
 "
 
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml').with_content(profiles_set)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/profiles.xml').with_content(profiles_set)
       end
     end
   end

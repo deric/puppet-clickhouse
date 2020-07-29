@@ -418,7 +418,7 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__profiles('profiles.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/profiles.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/profiles.xml') }
     end
 
     context 'with quotas' do
