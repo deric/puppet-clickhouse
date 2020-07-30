@@ -1,10 +1,10 @@
 # @summary
-#   Create and manage Clickhouse quotas. 
+#   Create and manage Clickhouse quotas.
 #
 # @see https://clickhouse.yandex/docs/en/operations/quotas/
 #
 # @example Create two quotas (web with two intervals, office with one).
-#   clickhouse::server::quotas { 'quotas.xml': 
+#   clickhouse::server::quotas { 'quotas.xml':
 #     config_dir   => '/etc/clickhouse-server/users.d',
 #     quotas => {
 #       web => {
@@ -56,7 +56,7 @@
 #   Quotas configuraion.
 #
 define clickhouse::server::quotas(
-  Stdlib::Unixpath $users_dir           = $clickhouse::server::users_dir,
+  Stdlib::Unixpath $users_dir           = $clickhouse::server::config_dir,
   String $quotas_file_owner             = $clickhouse::server::clickhouse_user,
   String $quotas_file_group             = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure     = 'present',

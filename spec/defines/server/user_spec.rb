@@ -4,7 +4,7 @@ describe 'clickhouse::server::user' do
   let(:title) { 'alice' }
   let(:params) do
     {
-      users_dir: '/etc/clickhouse-server/users.d',
+      users_dir: '/etc/clickhouse-server/conf.d',
       user_file_owner: 'clickhouse',
       user_file_group: 'clickhouse',
     }
@@ -27,7 +27,7 @@ describe 'clickhouse::server::user' do
   </users>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_defaults)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml').with_content(alice_defaults)
       end
 
       alice_password = "\
@@ -44,12 +44,12 @@ describe 'clickhouse::server::user' do
 
       it 'with cleartext password' do
         params['password'] = 'helloAlice'
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_password)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml').with_content(alice_password)
       end
 
       it 'with sha256 password' do
         params['password'] = '21597f1f8d7874eeb0d08e485c146c3067dc502512c6edaa38e0eabb3c4280a6'
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_password)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml').with_content(alice_password)
       end
 
       it 'with allow_databases' do
@@ -68,7 +68,7 @@ describe 'clickhouse::server::user' do
   </users>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_databases)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml').with_content(alice_databases)
       end
 
       it 'with profile override' do
@@ -83,7 +83,7 @@ describe 'clickhouse::server::user' do
   </users>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_profile)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml').with_content(alice_profile)
       end
 
       it 'with quota override' do
@@ -98,7 +98,7 @@ describe 'clickhouse::server::user' do
   </users>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_profile)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml').with_content(alice_profile)
       end
 
       it 'with networks' do
@@ -125,7 +125,7 @@ describe 'clickhouse::server::user' do
   </users>
 </yandex>
 "
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml').with_content(alice_networks)
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml').with_content(alice_networks)
       end
     end
   end
