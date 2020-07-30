@@ -123,7 +123,7 @@ describe 'clickhouse::server' do
       }
 
       it {
-        is_expected.to contain_file('/etc/clickhouse-server/users.d/').with(
+        is_expected.to contain_file('/etc/clickhouse-server/conf.d/').with(
           ensure: 'directory',
           mode: '0664',
           owner: 'clickhouse',
@@ -195,7 +195,7 @@ describe 'clickhouse::server' do
         }
 
         it {
-          is_expected.to contain_file('/etc/clickhouse-server/users.d/').with(
+          is_expected.to contain_file('/etc/clickhouse-server/conf.d/').with(
             ensure: 'directory',
             mode: '0664',
             owner: 'clickhouse',
@@ -376,7 +376,7 @@ describe 'clickhouse::server' do
           password: 'helloalice',
           quota: 'default',
           profile: 'default',
-          users_dir: '/etc/clickhouse-server/users.d',
+          users_dir: '/etc/clickhouse-server/conf.d',
           user_file_owner: 'clickhouse',
           user_file_group: 'clickhouse',
           allow_databases: ['db1', 'db2'],
@@ -389,15 +389,15 @@ describe 'clickhouse::server' do
           password: '2e47bc89156722a5956f8a04adad0a701344f529427f673b5d52635dd053b9b4',
           quota: 'test',
           profile: 'test',
-          users_dir: '/etc/clickhouse-server/users.d',
+          users_dir: '/etc/clickhouse-server/conf.d',
           user_file_owner: 'clickhouse',
           user_file_group: 'clickhouse',
         )
       }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/alice.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/alice.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/bob.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/bob.xml') }
     end
 
     context 'with profiles' do
@@ -464,7 +464,7 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__quotas('quotas.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/users.d/quotas.xml') }
+      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/quotas.xml') }
     end
 
     context 'with dictionaries' do

@@ -105,7 +105,7 @@ Installs repository for Clickhouse.
 
 #### Examples
 
-##### 
+#####
 
 ```puppet
 include clickhouse::repo
@@ -191,7 +191,7 @@ Default value: $clickhouse::params::config_dir
 
 Data type: `Stdlib::Unixpath`
 
-Directory where Clickhouse Server user configuration files will be stored. Defaults to '/etc/clickhouse-server/users.d'.
+Directory where Clickhouse Server user configuration files will be stored. Defaults to '/etc/clickhouse-server/conf.d'.
 
 Default value: $clickhouse::params::users_dir
 
@@ -549,11 +549,11 @@ https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/
 
 #### Examples
 
-##### Create two profiles (web and readonly), which will be stored in /etc/clickhouse-server/users.d/profiles.xml file.
+##### Create two profiles (web and readonly), which will be stored in /etc/clickhouse-server/conf.d/profiles.xml file.
 
 ```puppet
 clickhouse::server::profiles { 'profiles.xml':
-  config_dir    => '/etc/clickhouse-server/users.d',
+  config_dir    => '/etc/clickhouse-server/conf.d',
   profiles      => {
     web      => {
       max_threads      => 8,
@@ -578,7 +578,7 @@ Name of the file with profiles configurations.
 
 Data type: `Stdlib::Unixpath`
 
-Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
+Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
 
 Default value: $clickhouse::server::users_dir
 
@@ -627,7 +627,7 @@ https://clickhouse.yandex/docs/en/operations/quotas/
 
 ```puppet
 clickhouse::server::quotas { 'quotas.xml':
-  config_dir   => '/etc/clickhouse-server/users.d',
+  config_dir   => '/etc/clickhouse-server/conf.d',
   quotas => {
     web => {
       interval => [
@@ -677,7 +677,7 @@ Name of the file with quotas configurations.
 
 Data type: `Stdlib::Unixpath`
 
-Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/users.d'.
+Path to Clickhouse configuration folder. Defaults to '/etc/clickhouse-server/conf.d'.
 
 Default value: $clickhouse::server::users_dir
 
@@ -882,7 +882,7 @@ Default value: `undef`
 
 Data type: `Stdlib::Unixpath`
 
-Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/users.d/'
+Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/conf.d/'
 
 Default value: $clickhouse::server::users_dir
 
