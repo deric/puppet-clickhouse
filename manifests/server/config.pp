@@ -69,6 +69,16 @@ class clickhouse::server::config {
         require => File[$clickhouse::server::config_dir],
       }
     }
+
+    if $clickhouse::server::crash_reports {
+      file { "${clickhouse::server::config_dir}/crash_reports.xml":
+        content => clickhouse_config('send_crash_reports' => $clickhouse::server::crash_reports ),
+        mode    => '0664',
+        owner   => $clickhouse::server::clickhouse_user,
+        group   => $clickhouse::server::clickhouse_group,
+      }
+
+    }
   }
 
 }

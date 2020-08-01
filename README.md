@@ -204,6 +204,8 @@ class { 'clickhouse::server':
 }
 ```
 
+### Hiera support
+
 Configuration from YAML backend:
 ```yaml
 clickhouse::server::override_options:
@@ -234,6 +236,17 @@ clickhouse::server::profiles:
     readonly: 1
 ```
 
+
+### Crash reports
+
+Settings for opt-in sending crash reports.
+
+```
+clickhouse::server::crash_reports:
+  enabled: true
+  endpoint: http://sentry.localhost # Overrides the Sentry endpoint
+  debug: false
+```
 
 
 ## Reference

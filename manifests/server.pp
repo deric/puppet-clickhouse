@@ -123,6 +123,7 @@ class clickhouse::server (
   Optional[Array[String]] $dictionaries                                     = undef,
   Optional[Clickhouse::Clickhouse_replication] $replication                 = undef,
   Optional[Clickhouse::Clickhouse_remote_servers] $remote_servers           = undef,
+  Optional[Clickhouse::Clickhouse_crash_reports] $crash_reports             = undef,
 ) inherits clickhouse::params {
 
   if $manage_repo {

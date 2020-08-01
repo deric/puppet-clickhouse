@@ -590,5 +590,32 @@ describe 'clickhouse::server' do
       it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/remote_servers.xml') }
     end
 
+    context 'with crash_reports' do
+      let(:facts) { os_facts }
+      let(:params) do
+        {
+          crash_reports: {
+            'enabled' => true,
+            'endpoint' => 'http://sentry.localhost',
+            'debug' => false,
+            'tmp_path' => '/tmp/sentry'
+          },
+        }
+      end
+
+      crash_reports_conf = '<yandex>
+  <send_crash_reports>
+    <enabled>true</enabled>
+    <endpoint>http://sentry.localhost</endpoint>
+    <debug>false</debug>
+    <tmp_path>/tmp/sentry</tmp_path>
+  </send_crash_reports>
+</yandex>
+'
+      it { is_expected.to contain_file(
+        '/etc/clickhouse-server/conf.d/crash_reports.xml'
+        ).with_content(crash_reports_conf) }
+    end
+
   end
 end
