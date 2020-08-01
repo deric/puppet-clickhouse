@@ -549,7 +549,7 @@ describe 'clickhouse::server' do
         ).with_content(replication_conf) }
     end
 
-    context 'with remote servers' do
+    context 'with old remote servers config' do
       let(:facts) { os_facts }
       let(:params) do
         {
@@ -587,7 +587,245 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
 
-      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/remote_servers.xml') }
+remote_servers_conf = '<yandex>
+  <remote_servers>
+    <replicated>
+      <shard>
+        <weight>1</weight>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host1.local</host>
+          <port>9000</port>
+        </replica>
+        <replica>
+          <host>host2.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+    </replicated>
+    <segmented>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host1.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host2.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+    </segmented>
+    <segmented_replicated>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host1.local</host>
+          <port>9000</port>
+        </replica>
+        <replica>
+          <host>host2.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host3.local</host>
+          <port>9000</port>
+        </replica>
+        <replica>
+          <host>host4.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+    </segmented_replicated>
+  </remote_servers>
+</yandex>
+'
+      it { is_expected.to contain_file(
+        '/etc/clickhouse-server/conf.d/remote_servers.xml'
+        ).with_content(remote_servers_conf) }
+    end
+
+ context 'with new remote servers config' do
+      let(:facts) { os_facts }
+      let(:params) do
+        {
+          remote_servers: {
+            'replicated' => {
+              'shard' => {
+                'weight'               => 1,
+                'internal_replication' => true,
+                'replicas'              => {
+                  'host1.local' => {
+                    'port' => 9000,
+                  },
+                  'host2.local' => {
+                    'port' => 9000,
+                  },
+                },
+              },
+            },
+            'segmented' => {
+              'shard1' => {
+                'internal_replication' => true,
+                'replicas'              => {
+                  'host1.local' => {
+                    'port' => 9000,
+                  },
+                },
+              },
+              'shard2' => {
+                'internal_replication' => true,
+                'replicas'              => {
+                  'host2.local' => {
+                    'port' => 9000,
+                  },
+                },
+              },
+            },
+            'segmented_replicated' => {
+              'shard1' => {
+                'internal_replication' => true,
+                'replicas'              => {
+                  'host1.local' => {
+                    'port' => 9000,
+                  },
+                  'host2.local' => {
+                    'port' => 9000,
+                  },
+                },
+              },
+              'shard2' => {
+                'internal_replication' => true,
+                'replicas'              => {
+                  'host3.local' => {
+                    'port' => 9000,
+                  },
+                  'host4.local' => {
+                    'port' => 9000,
+                  },
+                },
+              },
+            },
+          },
+        }
+      end
+
+      it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
+
+remote_servers_conf = '<yandex>
+  <remote_servers>
+    <replicated>
+      <shard>
+        <weight>1</weight>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host1.local</host>
+          <port>9000</port>
+        </replica>
+        <replica>
+          <host>host2.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+    </replicated>
+    <segmented>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host1.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host2.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+    </segmented>
+    <segmented_replicated>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host1.local</host>
+          <port>9000</port>
+        </replica>
+        <replica>
+          <host>host2.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+      <shard>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host3.local</host>
+          <port>9000</port>
+        </replica>
+        <replica>
+          <host>host4.local</host>
+          <port>9000</port>
+        </replica>
+      </shard>
+    </segmented_replicated>
+  </remote_servers>
+</yandex>
+'
+      it { is_expected.to contain_file(
+        '/etc/clickhouse-server/conf.d/remote_servers.xml'
+        ).with_content(remote_servers_conf) }
+    end
+
+ context 'with replicas configuration' do
+      let(:facts) { os_facts }
+      let(:params) do
+        {
+          remote_servers: {
+            'replicated' => {
+              'shard' => {
+                'weight'               => 1,
+                'internal_replication' => true,
+                'replicas'              => {
+                  'host1.local' => {
+                    'port'             => 9000,
+                    'priority'         => 1,
+                    'default_database' => 'foo',
+                  },
+                },
+              },
+            },
+          },
+        }
+      end
+
+      it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
+
+remote_servers_conf = '<yandex>
+  <remote_servers>
+    <replicated>
+      <shard>
+        <weight>1</weight>
+        <internal_replication>true</internal_replication>
+        <replica>
+          <host>host1.local</host>
+          <port>9000</port>
+          <priority>1</priority>
+          <default_database>foo</default_database>
+        </replica>
+      </shard>
+    </replicated>
+  </remote_servers>
+</yandex>
+'
+      it { is_expected.to contain_file(
+        '/etc/clickhouse-server/conf.d/remote_servers.xml'
+        ).with_content(remote_servers_conf) }
     end
 
     context 'with crash_reports' do

@@ -237,6 +237,27 @@ clickhouse::server::profiles:
 ```
 
 
+### Replicas
+
+Configure host properties:
+```yaml
+clickhouse::server::remote_servers:
+  replicated:
+    shard:
+      internal_replication: true
+      replicas:
+        host1.local:
+          port: 9000
+          priority: 1
+          default_database: foo
+          tcp_port_secure: 9100
+          secure: 1
+          user: click
+          password: house
+        host2.local:
+          port: 9000
+```
+
 ### Crash reports
 
 Settings for opt-in sending crash reports.
