@@ -64,6 +64,7 @@ class clickhouse::server::config {
         mode    => '0664',
         content => epp("${module_name}/zookeeper.xml.epp", {
           'zookeeper_servers' => $clickhouse::server::replication['zookeeper_servers'],
+          'distributed_ddl'   => $clickhouse::server::replication['distributed_ddl'],
         }),
         require => File[$clickhouse::server::config_dir],
       }

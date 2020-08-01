@@ -7,4 +7,14 @@
     </node>
 <% } -%>
   </zookeeper>
+<% if $distributed_ddl { -%>
+  <distributed_ddl>
+<% if $distributed_ddl['path'] { -%>
+    <path><%= $distributed_ddl['path'] -%></path>
+<% } -%>
+<% if $distributed_ddl['profile'] { -%>
+    <profile><%= $distributed_ddl['profile'] -%></profile>
+<% } -%>
+  </distributed_ddl>
+<% } -%>
 </yandex>

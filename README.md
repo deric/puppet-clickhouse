@@ -204,6 +204,38 @@ class { 'clickhouse::server':
 }
 ```
 
+Configuration from YAML backend:
+```yaml
+clickhouse::server::override_options:
+  listen_host: 0.0.0.0
+  default_profile: default
+  default_database: default
+  mark_cache_size: 5368709120
+  uncompressed_cache_size: 8589934592
+  path: /var/lib/clickhouse/
+  interserver_http_port: 9009
+  interserver_http_host: "%{::fqdn}"
+  max_connections: 4096
+  max_concurrent_queries: 100
+  http_port: 8123
+  tcp_port: 9000
+  prometheus:
+    endpoint: /metrics
+    port: 8001
+    metrics: true
+    events: true
+    asynchronous_metrics: true
+clickhouse::server::profiles:
+  default:
+    max_memory_usage: 10000000000 #  Maximum memory usage for processing single query, in bytes
+    use_uncompressed_cache: 0 # Use cache of uncompressed blocks of data. Meaningful only for processing many of very short queries
+    load_balancing: random
+  readonly:
+    readonly: 1
+```
+
+
+
 ## Reference
 
 **Classes**
@@ -247,3 +279,10 @@ For a list of supported operating systems, see [metadata.json](https://github.co
 ## Development
 
 Please feel free to fork, modify, create issues, bug reports and pull requests.
+
+### Testing epp templates
+
+Render template from CLI:
+```
+$ puppet epp render templates/zookeeper.xml.epp --values "{'zookeeper_servers' => ['172.0.0.1:2181'], distributed_ddl=> {path => '/foo' }}"
+```

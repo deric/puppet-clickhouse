@@ -509,6 +509,46 @@ describe 'clickhouse::server' do
       it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/zookeeper.xml') }
     end
 
+    context 'with distributed_ddl' do
+      let(:facts) { os_facts }
+      let(:params) do
+        {
+          replication: {
+            'zookeeper_servers' => ['172.0.0.1:2181', '172.0.0.2:2181', '172.0.0.3:2181'],
+            'distributed_ddl'            => {
+              'path'    => '/clickhouse/task_queue/ddl',
+              'profile' => 'default',
+            },
+          },
+        }
+      end
+
+      replication_conf = '<yandex>
+  <zookeeper>
+    <node index="1">
+      <host>172.0.0.1</host>
+      <port>2181</port>
+    </node>
+    <node index="2">
+      <host>172.0.0.2</host>
+      <port>2181</port>
+    </node>
+    <node index="3">
+      <host>172.0.0.3</host>
+      <port>2181</port>
+    </node>
+  </zookeeper>
+  <distributed_ddl>
+    <path>/clickhouse/task_queue/ddl</path>
+    <profile>default</profile>
+  </distributed_ddl>
+</yandex>
+'
+      it { is_expected.to contain_file(
+        '/etc/clickhouse-server/conf.d/zookeeper.xml'
+        ).with_content(replication_conf) }
+    end
+
     context 'with remote servers' do
       let(:facts) { os_facts }
       let(:params) do
