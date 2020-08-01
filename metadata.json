@@ -1,12 +1,12 @@
 {
-  "name": "mfedotov-clickhouse",
-  "version": "1.0.6",
+  "name": "deric-clickhouse",
+  "version": "1.1.0-dev",
   "author": "Max Fedotov",
   "summary": "Installs, configures and manages Clickhouse server and client",
   "license": "Apache-2.0",
-  "source": "https://github.com/MaxFedotov/puppet-clickhouse.git",
-  "project_page": "https://github.com/MaxFedotov/puppet-clickhouse",
-  "issues_url": "https://github.com/MaxFedotov/puppet-clickhouse/issues",
+  "source": "https://github.com/deric/puppet-clickhouse.git",
+  "project_page": "https://github.com/deric/puppet-clickhouse",
+  "issues_url": "https://github.com/deric/puppet-clickhouse/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
