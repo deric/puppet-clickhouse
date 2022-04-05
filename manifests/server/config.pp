@@ -4,7 +4,6 @@
 # @api private
 #
 class clickhouse::server::config {
-
   $default_options = {
     'listen_host'            => '::',
     'dictionaries_config'    => "${clickhouse::server::dict_dir}/*.xml",
@@ -23,21 +22,21 @@ class clickhouse::server::config {
     $purge = false
   }
 
-  file { [ $clickhouse::server::clickhouse_datadir, $clickhouse::server::clickhouse_tmpdir, $clickhouse::server::main_dir ]:
-      ensure => 'directory',
-      mode   => '0664',
-      owner  => $clickhouse::server::clickhouse_user,
-      group  => $clickhouse::server::clickhouse_group,
+  file { [$clickhouse::server::clickhouse_datadir, $clickhouse::server::clickhouse_tmpdir, $clickhouse::server::main_dir]:
+    ensure => 'directory',
+    mode   => '0664',
+    owner  => $clickhouse::server::clickhouse_user,
+    group  => $clickhouse::server::clickhouse_group,
   }
 
-  file { [ $clickhouse::server::config_dir, $clickhouse::server::users_dir, $clickhouse::server::dict_dir ]:
-      ensure  => 'directory',
-      mode    => '0664',
-      owner   => $clickhouse::server::clickhouse_user,
-      group   => $clickhouse::server::clickhouse_group,
-      recurse => $recurse,
-      purge   => $purge,
-      require => File[$clickhouse::server::main_dir],
+  file { [$clickhouse::server::config_dir, $clickhouse::server::users_dir, $clickhouse::server::dict_dir]:
+    ensure  => 'directory',
+    mode    => '0664',
+    owner   => $clickhouse::server::clickhouse_user,
+    group   => $clickhouse::server::clickhouse_group,
+    recurse => $recurse,
+    purge   => $purge,
+    require => File[$clickhouse::server::main_dir],
   }
 
   if $clickhouse::server::manage_config {
@@ -63,8 +62,8 @@ class clickhouse::server::config {
         group   => $clickhouse::server::clickhouse_group,
         mode    => '0664',
         content => epp("${module_name}/zookeeper.xml.epp", {
-          'zookeeper_servers' => $clickhouse::server::replication['zookeeper_servers'],
-          'distributed_ddl'   => $clickhouse::server::replication['distributed_ddl'],
+            'zookeeper_servers' => $clickhouse::server::replication['zookeeper_servers'],
+            'distributed_ddl'   => $clickhouse::server::replication['distributed_ddl'],
         }),
         require => File[$clickhouse::server::config_dir],
       }
@@ -72,13 +71,12 @@ class clickhouse::server::config {
 
     if $clickhouse::server::crash_reports {
       file { "${clickhouse::server::config_dir}/crash_reports.xml":
-        content => clickhouse_config('send_crash_reports' => $clickhouse::server::crash_reports ),
-        mode    => '0664',
-        owner   => $clickhouse::server::clickhouse_user,
-        group   => $clickhouse::server::clickhouse_group,
+        content              => clickhouse_config
+        'send_crash_reports' => $clickhouse::server::crash_reports ),
+        mode                 => '0664',
+        owner                => $clickhouse::server::clickhouse_user,
+        group                => $clickhouse::server::clickhouse_group,
       }
-
     }
   }
-
 }
