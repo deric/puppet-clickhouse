@@ -587,7 +587,8 @@ describe 'clickhouse::server' do
 
       it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
 
-remote_servers_conf = '<yandex>
+      remote_servers_conf = <<-EOS
+<yandex>
   <remote_servers>
     <replicated>
       <shard>
@@ -645,7 +646,7 @@ remote_servers_conf = '<yandex>
     </segmented_replicated>
   </remote_servers>
 </yandex>
-'
+EOS
       it { is_expected.to contain_file(
         '/etc/clickhouse-server/conf.d/remote_servers.xml'
         ).with_content(remote_servers_conf) }
@@ -718,7 +719,8 @@ remote_servers_conf = '<yandex>
 
       it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
 
-remote_servers_conf = '<yandex>
+      remote_servers_conf = <<-EOS
+<yandex>
   <remote_servers>
     <replicated>
       <shard>
@@ -776,7 +778,7 @@ remote_servers_conf = '<yandex>
     </segmented_replicated>
   </remote_servers>
 </yandex>
-'
+EOS
       it { is_expected.to contain_file(
         '/etc/clickhouse-server/conf.d/remote_servers.xml'
         ).with_content(remote_servers_conf) }
@@ -806,7 +808,8 @@ remote_servers_conf = '<yandex>
 
       it { is_expected.to contain_clickhouse__server__remote_servers('remote_servers.xml') }
 
-remote_servers_conf = '<yandex>
+      remote_servers_conf = <<-EOS
+<yandex>
   <remote_servers>
     <replicated>
       <shard>
@@ -822,7 +825,7 @@ remote_servers_conf = '<yandex>
     </replicated>
   </remote_servers>
 </yandex>
-'
+EOS
       it { is_expected.to contain_file(
         '/etc/clickhouse-server/conf.d/remote_servers.xml'
         ).with_content(remote_servers_conf) }
@@ -841,7 +844,8 @@ remote_servers_conf = '<yandex>
         }
       end
 
-      crash_reports_conf = '<yandex>
+      crash_reports_conf = <<-EOS
+<yandex>
   <send_crash_reports>
     <enabled>true</enabled>
     <endpoint>http://sentry.localhost</endpoint>
@@ -849,7 +853,7 @@ remote_servers_conf = '<yandex>
     <tmp_path>/tmp/sentry</tmp_path>
   </send_crash_reports>
 </yandex>
-'
+EOS
       it { is_expected.to contain_file(
         '/etc/clickhouse-server/conf.d/crash_reports.xml'
         ).with_content(crash_reports_conf) }
