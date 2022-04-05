@@ -1,6 +1,4 @@
 
-[![Build Status](https://travis-ci.org/deric/puppet-clickhouse.svg?branch=master)](https://travis-ci.org/deric/puppet-clickhouse)
-
 # clickhouse
 
 #### Table of Contents
