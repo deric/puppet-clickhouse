@@ -15,9 +15,8 @@ Group=<%= $group %>
 Restart=always
 RestartSec=30
 RuntimeDirectory=clickhouse-server
+EnvironmentFile=-/etc/default/clickhouse-server
 ExecStart=/usr/bin/clickhouse-server --config=<%= $config %> --pid-file=/run/clickhouse-server/clickhouse-server.pid
-# Minus means that this file is optional.
-EnvironmentFile=-/etc/default/clickhouse
 LimitCORE=infinity
 LimitNOFILE=500000
 CapabilityBoundingSet=CAP_NET_ADMIN CAP_IPC_LOCK CAP_SYS_NICE
@@ -25,3 +24,4 @@ CapabilityBoundingSet=CAP_NET_ADMIN CAP_IPC_LOCK CAP_SYS_NICE
 [Install]
 # ClickHouse should not start from the rescue shell (rescue.target).
 WantedBy=multi-user.target
+
