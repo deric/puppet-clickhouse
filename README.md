@@ -1,24 +1,4 @@
-
-# clickhouse
-
-#### Table of Contents
-
-- [clickhouse](#clickhouse)
-      - [Table of Contents](#table-of-contents)
-  - [Description](#description)
-  - [Setup](#setup)
-    - [Setup Requirements](#setup-requirements)
-    - [Beginning with clickhouse](#beginning-with-clickhouse)
-  - [Usage](#usage)
-    - [Customize server options](#customize-server-options)
-    - [Create a database](#create-a-database)
-    - [Specify passwords for users](#specify-passwords-for-users)
-    - [Install Clickhouse Server](#install-clickhouse-server)
-  - [Reference](#reference)
-  - [Limitations](#limitations)
-  - [Development](#development)
-
-## Description
+# Clickhouse
 
 The clickhouse module installs, configures and manages the Clickhouse Server service.
 
