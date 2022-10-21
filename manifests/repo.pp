@@ -20,7 +20,6 @@ class clickhouse::repo {
           server => 'hkp://keyserver.ubuntu.com:80',
         },
       }
-      Apt::Source['clickhouse'] -> Package <| |>
     }
     'RedHat': {
       yumrepo { 'clickhouse-altinity':
@@ -31,7 +30,6 @@ class clickhouse::repo {
         gpgcheck => 0,
         gpgkey   => 'https://packagecloud.io/altinity/clickhouse/gpgkey',
       }
-      Yumrepo['clickhouse-altinity'] -> Package <| |>
     }
   }
 
