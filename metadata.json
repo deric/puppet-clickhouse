@@ -1,6 +1,6 @@
 {
   "name": "deric-clickhouse",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "Tomas Barton",
   "summary": "Installs, configures and manages Clickhouse server and client",
   "license": "Apache-2.0",
@@ -42,7 +42,8 @@
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "18.04",
-        "20.04"
+        "20.04",
+        "22.04"
       ]
     }
   ],

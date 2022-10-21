@@ -1,4 +1,4 @@
-# @summary 
+# @summary
 #   Installs repository for Clickhouse.
 #
 # @example
@@ -9,17 +9,18 @@ class clickhouse::repo {
     default: {
       fail("${facts['os']['family']} is not supported (yet).")
     }
+
     'Debian': {
-      apt::source { 'clickhouse-yandex':
-        location => 'http://repo.yandex.ru/clickhouse/deb/stable/',
-        release  => 'main/',
+      apt::source { 'clickhouse':
+        location => 'https://packages.clickhouse.com/deb',
+        release  => 'stable main',
         repos    => '',
         key      => {
-          id     => '9EBB357BC2B0876A774500C7C8F1E19FE0C56BD4',
+          id     => '3A9EA1193A97B548BE1457D48919F6BD2B48D754',
           server => 'hkp://keyserver.ubuntu.com:80',
         },
       }
-      Apt::Source['clickhouse-yandex'] -> Package <| |>
+      Apt::Source['clickhouse'] -> Package <| |>
     }
     'RedHat': {
       yumrepo { 'clickhouse-altinity':
