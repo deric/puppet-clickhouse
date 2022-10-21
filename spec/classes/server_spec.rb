@@ -64,7 +64,7 @@ describe 'clickhouse::server' do
 
       it {
         is_expected.to contain_file('/etc/systemd/system/clickhouse-server.service')
-          .with_content(/config=\/etc\/clickhouse-server\/config.xml/)
+          .with_content(%r{config=/etc/clickhouse-server/config.xml})
       }
 
       it {
@@ -110,17 +110,6 @@ describe 'clickhouse::server' do
           mode: '0664',
           owner: 'clickhouse',
           group: 'clickhouse',
-        )
-      }
-
-      it {
-        is_expected.to contain_file('/etc/clickhouse-server/conf.d/').with(
-          ensure: 'directory',
-          mode: '0664',
-          owner: 'clickhouse',
-          group: 'clickhouse',
-          recurse: true,
-          purge: true,
         )
       }
 
@@ -182,17 +171,6 @@ describe 'clickhouse::server' do
             mode: '0664',
             owner: 'clickhouse',
             group: 'clickhouse',
-          )
-        }
-
-        it {
-          is_expected.to contain_file('/etc/clickhouse-server/conf.d/').with(
-            ensure: 'directory',
-            mode: '0664',
-            owner: 'clickhouse',
-            group: 'clickhouse',
-            recurse: false,
-            purge: false,
           )
         }
 
