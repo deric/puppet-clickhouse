@@ -40,12 +40,12 @@ describe 'clickhouse::repo' do
     end
 
     it {
-      is_expected.to contain_yumrepo('clickhouse-altinity').with(
-        name: 'clickhouse-altinity',
-        baseurl: 'https://packagecloud.io/altinity/clickhouse/el/$releasever/$basearch',
+      is_expected.to contain_yumrepo('clickhouse-stable').with(
+        name: 'clickhouse-stable',
+        baseurl: 'https://packages.clickhouse.com/rpm/stable/',
         enabled: 1,
         gpgcheck: 0,
-        gpgkey: 'https://packagecloud.io/altinity/clickhouse/gpgkey',
+        gpgkey: 'https://packages.clickhouse.com/rpm/stable/repodata/repomd.xml.key',
       )
     }
   end

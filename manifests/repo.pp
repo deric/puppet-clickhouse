@@ -21,13 +21,14 @@ class clickhouse::repo {
       }
     }
     'RedHat': {
-      yumrepo { 'clickhouse-altinity':
-        name     => 'clickhouse-altinity',
-        descr    => 'Altinity clickhouse repository',
-        baseurl  => "https://packagecloud.io/altinity/clickhouse/el/\$releasever/\$basearch",
-        enabled  => 1,
-        gpgcheck => 0,
-        gpgkey   => 'https://packagecloud.io/altinity/clickhouse/gpgkey',
+      yumrepo { 'clickhouse-stable':
+        name          => 'clickhouse-stable',
+        descr         => 'ClickHouse - Stable Repository',
+        baseurl       => 'https://packages.clickhouse.com/rpm/stable/',
+        enabled       => 1,
+        gpgcheck      => 0,
+        repo_gpgcheck => 1,
+        gpgkey        => 'https://packages.clickhouse.com/rpm/stable/repodata/repomd.xml.key',
       }
     }
   }
