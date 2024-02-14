@@ -1,0 +1,7 @@
+---
+fixtures:
+  forge_modules:
+    apt: "puppetlabs/apt"
+    stdlib: "puppetlabs/stdlib"
+    yumrepo_core: "puppetlabs/yumrepo_core"
+

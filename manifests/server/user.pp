@@ -35,7 +35,7 @@
 # @param ensure
 #   Specifies whether to create user. Valid values are 'present', 'absent'. Defaults to 'present'.
 #
-define clickhouse::server::user(
+define clickhouse::server::user (
   Optional[String] $password                          = undef,
   String $quota                                       = 'default',
   String $profile                                     = 'default',
@@ -62,13 +62,12 @@ define clickhouse::server::user(
     group   => $user_file_group,
     mode    => '0664',
     content => epp("${module_name}/user.xml.epp", {
-      'user'            => $title,
-      'password'        => $real_password,
-      'quota'           => $quota,
-      'profile'         => $profile,
-      'allow_databases' => $allow_databases,
-      'networks'        => $networks,
+        'user'            => $title,
+        'password'        => $real_password,
+        'quota'           => $quota,
+        'profile'         => $profile,
+        'allow_databases' => $allow_databases,
+        'networks'        => $networks,
     }),
   }
-
 }

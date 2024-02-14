@@ -3,11 +3,7 @@ Gemfile:
   required:
     ':dependencies':
       - gem: xml-simple
-    ':development':
-      - gem: 'librarian-puppet'
-        platforms: ruby
 .gitignore:
   paths:
     - '.tmp/'
-    - '.librarian/'
     - 'Puppetfile.lock'
