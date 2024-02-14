@@ -1,4 +1,4 @@
-name: "Static & Spec Tests"
+name: Tests
 
 on:
   - push
