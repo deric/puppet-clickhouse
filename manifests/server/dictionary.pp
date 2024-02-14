@@ -21,14 +21,13 @@
 # @param source
 #   Path to a 'files' folder in puppet, where dictionary file are located. Defaults to 'puppet:///modules/${module_name}'.
 #
-define clickhouse::server::dictionary(
+define clickhouse::server::dictionary (
   Stdlib::Unixpath $dict_dir        = $clickhouse::server::dict_dir,
   String $dict_file_owner           = $clickhouse::server::clickhouse_user,
   String $dict_file_group           = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure = 'present',
   String $source                    = "${clickhouse::server::dict_source_folder}/${title}",
 ) {
-
   file { "${dict_dir}/${title}":
     ensure => $ensure,
     owner  => $dict_file_owner,
@@ -36,5 +35,4 @@ define clickhouse::server::dictionary(
     mode   => '0664',
     source => $source,
   }
-
 }

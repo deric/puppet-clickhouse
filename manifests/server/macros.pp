@@ -26,20 +26,18 @@
 # @param macros
 #   Substitions in macros file.
 #
-define clickhouse::server::macros(
+define clickhouse::server::macros (
   Stdlib::Unixpath $config_dir      = $clickhouse::server::config_dir,
   String $macros_file_owner         = $clickhouse::server::clickhouse_user,
   String $macros_file_group         = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure = 'present',
   Hash[String, Any] $macros         = {},
 ) {
-
   file { "${config_dir}/${title}":
     ensure  => $ensure,
-    content => clickhouse_config({'macros' => $macros}),
+    content => clickhouse_config({ 'macros' => $macros }),
     mode    => '0664',
     owner   => $macros_file_owner,
     group   => $macros_file_group,
   }
-
 }

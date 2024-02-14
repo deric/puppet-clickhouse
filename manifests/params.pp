@@ -4,7 +4,6 @@
 # @api private
 #
 class clickhouse::params {
-
 # Repository
   $manage_repo = true
 
@@ -47,5 +46,4 @@ class clickhouse::params {
   $manage_service  = true
   $manage_systemd  = true
   $restart         = false
-
 }

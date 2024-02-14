@@ -4,7 +4,6 @@
 # @api private
 #
 class clickhouse::server::service {
-
   if $clickhouse::server::manage_service {
     service { $clickhouse::server::service_name:
       ensure => $clickhouse::server::service_ensure,
@@ -30,12 +29,12 @@ class clickhouse::server::service {
         group     => 'root',
         mode      => '0664',
         content   => epp("${module_name}/server_systemd.epp", {
-          'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
-          'user'   => $clickhouse::server::clickhouse_user,
-          'group'  => $clickhouse::server::clickhouse_group,
+            'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
+            'user'   => $clickhouse::server::clickhouse_user,
+            'group'  => $clickhouse::server::clickhouse_group,
         }),
         notify    => Exec['reload-systemd'],
-        subscribe => File['/etc/default/clickhouse-server']
+        subscribe => File['/etc/default/clickhouse-server'],
       }
 
       file { '/etc/default/clickhouse-server':
@@ -43,16 +42,15 @@ class clickhouse::server::service {
         group   => $clickhouse::server::clickhouse_group,
         mode    => '0664',
         content => epp("${module_name}/server_env.epp", {
-          'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
+            'config' => "${clickhouse::server::main_dir}/${clickhouse::server::config_file}",
         }),
       }
 
       exec { 'reload-systemd':
         command     => 'systemctl daemon-reload',
         refreshonly => true,
-        path        => '/bin:/usr/bin:/usr/local/bin'
+        path        => '/bin:/usr/bin:/usr/local/bin',
       }
     }
-
   }
 }

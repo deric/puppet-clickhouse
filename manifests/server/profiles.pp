@@ -30,20 +30,18 @@
 # @param profiles
 #   Profiles configuration.
 #
-define clickhouse::server::profiles(
+define clickhouse::server::profiles (
   Stdlib::Unixpath $config_dir              = $clickhouse::server::config_dir,
   String $profiles_file_owner               = $clickhouse::server::clickhouse_user,
   String $profiles_file_group               = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure         = 'present',
   Hash[String, Hash[String, Any]] $profiles = {},
 ) {
-
   file { "${config_dir}/${title}":
     ensure  => $ensure,
-    content => clickhouse_config({'profiles' => $profiles}),
+    content => clickhouse_config({ 'profiles' => $profiles }),
     mode    => '0664',
     owner   => $profiles_file_owner,
     group   => $profiles_file_group,
   }
-
 }

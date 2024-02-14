@@ -4,7 +4,6 @@
 # @api private
 #
 class clickhouse::server::resources {
-
   if $clickhouse::server::users {
     create_resources(clickhouse::server::user, $clickhouse::server::users)
   }
@@ -40,5 +39,4 @@ class clickhouse::server::resources {
       remote_servers => $clickhouse::server::remote_servers,
     }
   }
-
 }

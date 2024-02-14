@@ -55,20 +55,18 @@
 # @param quotas
 #   Quotas configuraion.
 #
-define clickhouse::server::quotas(
+define clickhouse::server::quotas (
   Stdlib::Unixpath $users_dir           = $clickhouse::server::config_dir,
   String $quotas_file_owner             = $clickhouse::server::clickhouse_user,
   String $quotas_file_group             = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure     = 'present',
   Clickhouse::Clickhouse_quotas $quotas = {},
 ) {
-
   file { "${users_dir}/${title}":
     ensure  => $ensure,
-    content => clickhouse_config({'quotas' => $quotas}),
+    content => clickhouse_config({ 'quotas' => $quotas }),
     mode    => '0664',
     owner   => $quotas_file_owner,
     group   => $quotas_file_group,
   }
-
 }

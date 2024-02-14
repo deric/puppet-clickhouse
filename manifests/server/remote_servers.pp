@@ -50,22 +50,20 @@
 # @param remote_servers
 #   Remote server configurations (see types/clickhouse_remote_servers.pp for data type description).
 #
-define clickhouse::server::remote_servers(
+define clickhouse::server::remote_servers (
   Stdlib::Unixpath $config_dir                          = $clickhouse::server::config_dir,
   String $remote_servers_file_owner                     = $clickhouse::server::clickhouse_user,
   String $remote_servers_file_group                     = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure                     = 'present',
   Clickhouse::Clickhouse_remote_servers $remote_servers = {},
 ) {
-
   file { "${config_dir}/${title}":
     ensure  => $ensure,
     owner   => $remote_servers_file_owner,
     group   => $remote_servers_file_group,
     mode    => '0664',
     content => epp("${module_name}/remote_servers.xml.epp", {
-      'remote_servers' => $remote_servers,
+        'remote_servers' => $remote_servers,
     }),
   }
-
 }
