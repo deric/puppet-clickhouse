@@ -48,6 +48,9 @@ end
 group :dependencies do
   gem "xml-simple", require: false
 end
+group :release do
+  gem "puppet-blacksmith", require: false
+end
 
 puppet_version = ENV['PUPPET_GEM_VERSION']
 facter_version = ENV['FACTER_GEM_VERSION']

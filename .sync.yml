@@ -1,9 +1,21 @@
 ---
+appveyor.yml:
+  delete: true
+.travis.yml:
+  delete: true
+.gitlab-ci.yml:
+  delete: true
+.editorconfig:
+  unmanaged: true
 Gemfile:
   required:
     ':dependencies':
       - gem: xml-simple
+    ':release':
+      - gem: 'puppet-blacksmith'
 .gitignore:
   paths:
     - '.tmp/'
     - 'Puppetfile.lock'
+spec/spec_helper.rb:
+  coverage_report: true
