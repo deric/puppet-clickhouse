@@ -3,7 +3,7 @@ fixtures:
   forge_modules:
     apt:
       repo: "puppetlabs/apt"
-      ref: 8.5.0
+      ref: 9.2.0
     stdlib:
       repo: "puppetlabs/stdlib"
       ref: 9.4.1
