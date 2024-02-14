@@ -19,10 +19,6 @@ describe 'clickhouse::server' do
       it { is_expected.to contain_class('clickhouse::server::resources') }
       it { is_expected.to contain_class('clickhouse::server::service') }
       it { is_expected.to contain_class('clickhouse::client::install') }
-      it { is_expected.to contain_anchor('clickhouse::server::start') }
-      it { is_expected.to contain_anchor('clickhouse::server::end') }
-      it { is_expected.to contain_anchor('clickhouse::client::start') }
-      it { is_expected.to contain_anchor('clickhouse::client::end') }
       it { is_expected.to contain_package('clickhouse-client') }
     end
 

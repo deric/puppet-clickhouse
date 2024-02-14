@@ -30,7 +30,5 @@ class clickhouse::client (
     include clickhouse::repo
   }
 
-  anchor { 'clickhouse::client::start': }
-  -> class { 'clickhouse::client::install': }
-  -> anchor { 'clickhouse::client::end': }
+  contain clickhouse::client::install
 }

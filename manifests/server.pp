@@ -142,10 +142,8 @@ class clickhouse::server (
     ~> Class['clickhouse::server::service']
   }
 
-  anchor { 'clickhouse::server::start': }
-  -> class { 'clickhouse::server::install': }
-  -> class { 'clickhouse::server::config': }
-  -> class { 'clickhouse::server::resources': }
-  -> class { 'clickhouse::server::service': }
-  -> anchor { 'clickhouse::server::end': }
+  contain clickhouse::server::install
+  contain clickhouse::server::config
+  contain clickhouse::server::resources
+  contain clickhouse::server::service
 }
