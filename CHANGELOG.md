@@ -8,7 +8,7 @@ All notable changes to this project will be documented in this file.
  - puppetlabs/stdlib 9
  - puppetlabs/apt 9
  - Removed anchors, using contain instead
-
+ - Use official RPM repo
 
 ## Release 1.2.0
 

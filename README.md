@@ -1,5 +1,7 @@
 # Clickhouse
 
+[![Puppet Forge](http://img.shields.io/puppetforge/v/deric/clickhouse.svg)](https://forge.puppet.com/modules/deric/clickhouse) [![Tests](https://github.com/deric/puppet-clickhouse/actions/workflows/spec.yml/badge.svg)](https://github.com/deric/puppet-clickhouse/actions/workflows/spec.yml)
+
 The clickhouse module installs, configures and manages the Clickhouse Server service.
 
 It also allows to create and manage users, quotas, profiles, dictionaries, databases as well as configure replication and sharding.
