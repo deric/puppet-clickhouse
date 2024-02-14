@@ -1,6 +1,6 @@
 {
   "name": "deric-clickhouse",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "author": "Tomas Barton",
   "summary": "Installs, configures and manages Clickhouse server and client",
   "license": "Apache-2.0",
