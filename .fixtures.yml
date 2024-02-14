@@ -1,7 +1,11 @@
 ---
 fixtures:
   forge_modules:
-    apt: "puppetlabs/apt"
-    stdlib: "puppetlabs/stdlib"
+    apt:
+      repo: "puppetlabs/apt"
+      ref: 8.5.0
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: 9.4.1
     yumrepo_core: "puppetlabs/yumrepo_core"
 
