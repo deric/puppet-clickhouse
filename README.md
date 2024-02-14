@@ -1,4 +1,4 @@
-# Clickhouse
+# Puppet Clickhouse
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/deric/clickhouse.svg)](https://forge.puppet.com/modules/deric/clickhouse) [![Tests](https://github.com/deric/puppet-clickhouse/actions/workflows/spec.yml/badge.svg)](https://github.com/deric/puppet-clickhouse/actions/workflows/spec.yml)
 
