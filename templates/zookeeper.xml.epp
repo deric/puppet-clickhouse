@@ -2,6 +2,9 @@
   <zookeeper>
 <% $zookeeper_servers.each |$idx, $server| { -%>
     <node index="<%= $idx + 1 %>">
+<% if $secure { -%>
+      <secure>1</secure>
+<% } -%>
       <host><%= split($server, /:/)[0] %></host>
       <port><%= split($server, /:/)[1] %></port>
     </node>
