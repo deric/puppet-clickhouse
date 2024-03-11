@@ -485,6 +485,39 @@ describe 'clickhouse::server' do
       it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/zookeeper.xml') }
     end
 
+    context 'with secure enabled' do
+      let(:facts) { os_facts }
+      let(:params) do
+        {
+          replication: {
+            'zookeeper_servers' => ['172.0.0.1:2181', '172.0.0.2:2181'],
+            'secure'            => true,
+          },
+        }
+      end
+
+      it { is_expected.to contain_file('/etc/clickhouse-server/conf.d/zookeeper.xml') }
+      replication_conf = '<yandex>
+  <zookeeper>
+    <node index="1">
+      <secure>1</secure>
+      <host>172.0.0.1</host>
+      <port>2181</port>
+    </node>
+    <node index="2">
+      <secure>1</secure>
+      <host>172.0.0.2</host>
+      <port>2181</port>
+    </node>
+  </zookeeper>
+</yandex>
+'
+      it {
+        is_expected.to contain_file(
+          '/etc/clickhouse-server/conf.d/zookeeper.xml',
+        ).with_content(replication_conf)
+      }
+    end
     context 'with distributed_ddl' do
       let(:facts) { os_facts }
       let(:params) do
