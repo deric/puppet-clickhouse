@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 2.1.0 [2024-06-28]
+
+ - Feat: add secure option to use ssl on keeper communications
+ - Fix: declare client variables on server to be passed on client class instantiation
+ - Fix: invalid yaml data
+
+
 ## Release 2.0.0 [2024-02-14]
 
  - Support Puppet 8
