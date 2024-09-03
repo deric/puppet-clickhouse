@@ -32,6 +32,8 @@ clickhouse::server::macros_file: 'macros.xml'
 clickhouse::server::zookeeper_config_file: 'zookeeper.xml'
 clickhouse::server::remote_servers_file: 'remote_servers.xml'
 clickhouse::server::install_client : true
+clickhouse::server::datadir_mode: '0700'
+clickhouse::server::confdir_mode: '0500'
 
 # Service
 clickhouse::server::service_name: clickhouse-server

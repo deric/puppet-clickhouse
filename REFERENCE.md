@@ -8,14 +8,13 @@
 
 #### Public Classes
 
+* [`clickhouse`](#clickhouse): Installs and configures Clickhouse
 * [`clickhouse::client`](#clickhouse--client): Installs and configures Clickhouse client.
 * [`clickhouse::repo`](#clickhouse--repo): Installs repository for Clickhouse.
 * [`clickhouse::server`](#clickhouse--server): Installs and configures Clickhouse server.
 
 #### Private Classes
 
-* `clickhouse::client::install`: Private class for managing Clickhouse client package.
-* `clickhouse::params`: Private class for setting default Clickhouse parameters.
 * `clickhouse::server::config`: Private class for Clickhouse server configuration.
 * `clickhouse::server::install`: Private class for managing Clickhouse server package.
 * `clickhouse::server::resources`: Private class for applying Clickhouse resources.
@@ -49,6 +48,22 @@
 
 ## Classes
 
+### <a name="clickhouse"></a>`clickhouse`
+
+Installs and configures Clickhouse
+
+#### Parameters
+
+The following parameters are available in the `clickhouse` class:
+
+* [`manage_repo`](#-clickhouse--manage_repo)
+
+##### <a name="-clickhouse--manage_repo"></a>`manage_repo`
+
+Data type: `Boolean`
+
+Whether to install Clickhouse repository.
+
 ### <a name="clickhouse--client"></a>`clickhouse::client`
 
 Installs and configures Clickhouse client.
@@ -68,27 +83,16 @@ class { 'clickhouse::client':
 
 The following parameters are available in the `clickhouse::client` class:
 
-* [`manage_repo`](#-clickhouse--client--manage_repo)
 * [`package_name`](#-clickhouse--client--package_name)
 * [`package_ensure`](#-clickhouse--client--package_ensure)
 * [`manage_package`](#-clickhouse--client--manage_package)
 * [`package_install_options`](#-clickhouse--client--package_install_options)
-
-##### <a name="-clickhouse--client--manage_repo"></a>`manage_repo`
-
-Data type: `Boolean`
-
-Whether to install Clickhouse repository. Defaults to 'true'.
-
-Default value: `$clickhouse::params::manage_repo`
 
 ##### <a name="-clickhouse--client--package_name"></a>`package_name`
 
 Data type: `String`
 
 Name of Clickhouse client package to install. Defaults to 'clickhouse-client'.
-
-Default value: `$clickhouse::params::client_package_name`
 
 ##### <a name="-clickhouse--client--package_ensure"></a>`package_ensure`
 
@@ -97,23 +101,17 @@ Data type: `String`
 Whether the Clickhouse client package should be present, absent or specific version.
 Valid values are 'present', 'absent' or 'x.y.z'. Defaults to 'present'.
 
-Default value: `$clickhouse::params::client_package_ensure`
-
 ##### <a name="-clickhouse--client--manage_package"></a>`manage_package`
 
 Data type: `Boolean`
 
 Whether to manage Clickhouse client package. Defaults to 'true'.
 
-Default value: `$clickhouse::params::client_manage_package`
-
 ##### <a name="-clickhouse--client--package_install_options"></a>`package_install_options`
 
 Data type: `Array[String]`
 
 Array of install options for managed package resources. Appropriate options are passed to package manager.
-
-Default value: `$clickhouse::params::client_package_install_options`
 
 ### <a name="clickhouse--repo"></a>`clickhouse::repo`
 
@@ -146,13 +144,14 @@ class { 'clickhouse::server':
 
 The following parameters are available in the `clickhouse::server` class:
 
-* [`manage_repo`](#-clickhouse--server--manage_repo)
 * [`package_name`](#-clickhouse--server--package_name)
 * [`package_ensure`](#-clickhouse--server--package_ensure)
 * [`manage_package`](#-clickhouse--server--manage_package)
 * [`package_install_options`](#-clickhouse--server--package_install_options)
 * [`manage_config`](#-clickhouse--server--manage_config)
 * [`config_dir`](#-clickhouse--server--config_dir)
+* [`datadir_mode`](#-clickhouse--server--datadir_mode)
+* [`confdir_mode`](#-clickhouse--server--confdir_mode)
 * [`users_dir`](#-clickhouse--server--users_dir)
 * [`dict_dir`](#-clickhouse--server--dict_dir)
 * [`clickhouse_datadir`](#-clickhouse--server--clickhouse_datadir)
@@ -184,21 +183,11 @@ The following parameters are available in the `clickhouse::server` class:
 * [`main_dir`](#-clickhouse--server--main_dir)
 * [`manage_systemd`](#-clickhouse--server--manage_systemd)
 
-##### <a name="-clickhouse--server--manage_repo"></a>`manage_repo`
-
-Data type: `Boolean`
-
-Whether to install Clickhouse repository. Defaults to 'true'.
-
-Default value: `$clickhouse::params::manage_repo`
-
 ##### <a name="-clickhouse--server--package_name"></a>`package_name`
 
 Data type: `String`
 
 Name of Clickhouse Server package to install. Defaults to 'clickhouse-server'.
-
-Default value: `$clickhouse::params::package_name`
 
 ##### <a name="-clickhouse--server--package_ensure"></a>`package_ensure`
 
@@ -207,15 +196,11 @@ Data type: `String`
 Whether the Clickhouse Server package should be present, absent or specific version.
 Valid values are 'present', 'absent' or 'x.y.z'. Defaults to 'present'.
 
-Default value: `$clickhouse::params::package_ensure`
-
 ##### <a name="-clickhouse--server--manage_package"></a>`manage_package`
 
 Data type: `Boolean`
 
 Whether to manage Clickhouse Server package. Defaults to 'true'.
-
-Default value: `$clickhouse::params::manage_package`
 
 ##### <a name="-clickhouse--server--package_install_options"></a>`package_install_options`
 
@@ -223,15 +208,11 @@ Data type: `Array[String]`
 
 Array of install options for managed package resources. Appropriate options are passed to package manager.
 
-Default value: `$clickhouse::params::package_install_options`
-
 ##### <a name="-clickhouse--server--manage_config"></a>`manage_config`
 
 Data type: `Boolean`
 
 Whether the Clickhouse Server configurations files should be managd. Defaults to 'true'.
-
-Default value: `$clickhouse::params::manage_config`
 
 ##### <a name="-clickhouse--server--config_dir"></a>`config_dir`
 
@@ -239,7 +220,17 @@ Data type: `Stdlib::Unixpath`
 
 Directory where Clickhouse Server configuration files will be stored. Defaults to '/etc/clickhouse-server/conf.d'.
 
-Default value: `$clickhouse::params::config_dir`
+##### <a name="-clickhouse--server--datadir_mode"></a>`datadir_mode`
+
+Data type: `String`
+
+Permissions for data directory
+
+##### <a name="-clickhouse--server--confdir_mode"></a>`confdir_mode`
+
+Data type: `String`
+
+Permissions for config directory
 
 ##### <a name="-clickhouse--server--users_dir"></a>`users_dir`
 
@@ -247,15 +238,11 @@ Data type: `Stdlib::Unixpath`
 
 Directory where Clickhouse Server user configuration files will be stored. Defaults to '/etc/clickhouse-server/users.d'.
 
-Default value: `$clickhouse::params::users_dir`
-
 ##### <a name="-clickhouse--server--dict_dir"></a>`dict_dir`
 
 Data type: `Stdlib::Unixpath`
 
 Directory where Clickhouse Server dictionaries will be stored. Defaults to '/etc/clickhouse-server/dict'.
-
-Default value: `$clickhouse::params::dict_dir`
 
 ##### <a name="-clickhouse--server--clickhouse_datadir"></a>`clickhouse_datadir`
 
@@ -263,15 +250,11 @@ Data type: `Stdlib::Unixpath`
 
 Directory where Clickhouse Server database files will be stored. Defaults to '/var/lib/clickhouse/'.
 
-Default value: `$clickhouse::params::clickhouse_datadir`
-
 ##### <a name="-clickhouse--server--clickhouse_tmpdir"></a>`clickhouse_tmpdir`
 
 Data type: `Stdlib::Unixpath`
 
 Directory where Clickhouse Server tmp files will be stored. Defaults to '/var/lib/clickhouse/tmp/'.
-
-Default value: `$clickhouse::params::clickhouse_tmpdir`
 
 ##### <a name="-clickhouse--server--clickhouse_user"></a>`clickhouse_user`
 
@@ -279,23 +262,17 @@ Data type: `String`
 
 Owner for Clickhouse Server configuration and data directories. Defaults to 'clickhouse'.
 
-Default value: `$clickhouse::params::clickhouse_user`
-
 ##### <a name="-clickhouse--server--clickhouse_group"></a>`clickhouse_group`
 
 Data type: `String`
 
 Group for Clickhouse Server configuration and data directories. Defaults to 'clickhouse'.
 
-Default value: `$clickhouse::params::clickhouse_group`
-
 ##### <a name="-clickhouse--server--keep_default_users"></a>`keep_default_users`
 
 Data type: `Boolean`
 
 Specifies whether to automatically remove default users, which are specified in users.xml file. Defaults to 'false'.
-
-Default value: `$clickhouse::params::keep_default_users`
 
 ##### <a name="-clickhouse--server--override_options"></a>`override_options`
 
@@ -311,15 +288,11 @@ Data type: `String`
 
 Name of the file, where Clickhouse Server configuration will be stored. See https://clickhouse.yandex/docs/en/operations/configuration_files/. Defaults to 'config.xml'
 
-Default value: `$clickhouse::params::config_file`
-
 ##### <a name="-clickhouse--server--profiles_file"></a>`profiles_file`
 
 Data type: `String`
 
 Name of the file, where Clickhouse Server profiles configuration will be stored. See https://clickhouse.yandex/docs/en/operations/settings/settings_profiles/. Defaults to '$profiles.xml'.
-
-Default value: `$clickhouse::params::profiles_file`
 
 ##### <a name="-clickhouse--server--quotas_file"></a>`quotas_file`
 
@@ -327,15 +300,11 @@ Data type: `String`
 
 Name of the file, where Clickhouse Server quotas configuration will be stored. See https://clickhouse.yandex/docs/en/operations/quotas/.  Defaults to 'quotas.xml'.
 
-Default value: `$clickhouse::params::quotas_file`
-
 ##### <a name="-clickhouse--server--macros_file"></a>`macros_file`
 
 Data type: `String`
 
 Name of the file, where Clickhouse Server macros configuration for replication will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/replication/. Defaults to '$macros.xml'.
-
-Default value: `$clickhouse::params::macros_file`
 
 ##### <a name="-clickhouse--server--zookeeper_config_file"></a>`zookeeper_config_file`
 
@@ -343,15 +312,11 @@ Data type: `String`
 
 Name of the file, where Clickhouse Server zookeeper configuration will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/replication/.  Defaults to 'zookeeper.xml'.
 
-Default value: `$clickhouse::params::zookeeper_config_file`
-
 ##### <a name="-clickhouse--server--remote_servers_file"></a>`remote_servers_file`
 
 Data type: `String`
 
 Name of the file, where Clickhouse Server remote servers configuration for Distributed table engine will be stored. See https://clickhouse.yandex/docs/en/operations/table_engines/distributed/. Defaults to 'remote_servers.xml'.
-
-Default value: `$clickhouse::params::remote_servers_file`
 
 ##### <a name="-clickhouse--server--dict_source_folder"></a>`dict_source_folder`
 
@@ -359,7 +324,7 @@ Data type: `String`
 
 Path to a 'files' folder in puppet, where dictionary file are located. Defaults to 'puppet:///modules/${module_name}'.
 
-Default value: `$clickhouse::params::dict_source_folder`
+Default value: `"puppet:///modules/${module_name}"`
 
 ##### <a name="-clickhouse--server--install_client"></a>`install_client`
 
@@ -367,15 +332,11 @@ Data type: `Boolean`
 
 Specifies whether to install Clickhouse Client package. Defaults to 'true'.
 
-Default value: `$clickhouse::params::install_client`
-
 ##### <a name="-clickhouse--server--service_name"></a>`service_name`
 
 Data type: `String`
 
 Name of the Clickhouse Server service. Defaults to 'clickhouse-server'.
-
-Default value: `$clickhouse::params::service_name`
 
 ##### <a name="-clickhouse--server--service_ensure"></a>`service_ensure`
 
@@ -383,15 +344,11 @@ Data type: `Stdlib::Ensure::Service`
 
 Specifies whether Clickhouse Server service should be running. Defaults to 'running'.
 
-Default value: `$clickhouse::params::service_ensure`
-
 ##### <a name="-clickhouse--server--service_enabled"></a>`service_enabled`
 
 Data type: `Boolean`
 
 Specifies whether Clickhouse Server service should be enabled. Defaults to 'true'.
-
-Default value: `$clickhouse::params::service_enabled`
 
 ##### <a name="-clickhouse--server--manage_service"></a>`manage_service`
 
@@ -399,15 +356,11 @@ Data type: `Boolean`
 
 Specifies whether Clickhouse Server service should be managed. Defaults to 'true'.
 
-Default value: `$clickhouse::params::manage_service`
-
 ##### <a name="-clickhouse--server--restart"></a>`restart`
 
 Data type: `Boolean`
 
 Specifies whether Clickhouse Server service should be restated when configuration changes. Defaults to 'false'.
-
-Default value: `$clickhouse::params::restart`
 
 ##### <a name="-clickhouse--server--users"></a>`users`
 
@@ -471,15 +424,11 @@ Data type: `Stdlib::Unixpath`
 
 
 
-Default value: `$clickhouse::params::main_dir`
-
 ##### <a name="-clickhouse--server--manage_systemd"></a>`manage_systemd`
 
 Data type: `Boolean`
 
 
-
-Default value: `$clickhouse::params::manage_systemd`
 
 ## Defined types
 
@@ -1172,6 +1121,7 @@ Alias of
 
 ```puppet
 Struct[{zookeeper_servers => Array[Pattern['[^\:]+:[0-9]{1,5}']],
+                                                  Optional[secure]  => Boolean,
                                                   Optional[macros]  => Hash[String, Any],
                                                   Optional[distributed_ddl] => Struct[{
                                                       Optional[path] => String,

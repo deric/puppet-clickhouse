@@ -22,16 +22,16 @@ class clickhouse::server::config {
     $purge = false
   }
 
-  file { [$clickhouse::server::clickhouse_datadir, $clickhouse::server::clickhouse_tmpdir, $clickhouse::server::main_dir]:
+  file { [$clickhouse::server::clickhouse_datadir, $clickhouse::server::main_dir, $clickhouse::server::clickhouse_tmpdir]:
     ensure => 'directory',
-    mode   => '0664',
+    mode   => $clickhouse::server::datadir_mode,
     owner  => $clickhouse::server::clickhouse_user,
     group  => $clickhouse::server::clickhouse_group,
   }
 
   file { [$clickhouse::server::config_dir, $clickhouse::server::users_dir, $clickhouse::server::dict_dir]:
     ensure  => 'directory',
-    mode    => '0664',
+    mode    => $clickhouse::server::confdir_mode,
     owner   => $clickhouse::server::clickhouse_user,
     group   => $clickhouse::server::clickhouse_group,
     recurse => $recurse,
@@ -42,7 +42,7 @@ class clickhouse::server::config {
   if $clickhouse::server::manage_config {
     file { "${clickhouse::server::main_dir}/${clickhouse::server::config_file}":
       content => clickhouse_config($options),
-      mode    => '0664',
+      mode    => '0400',
       owner   => $clickhouse::server::clickhouse_user,
       group   => $clickhouse::server::clickhouse_group,
     }
@@ -50,7 +50,7 @@ class clickhouse::server::config {
     if !($clickhouse::server::keep_default_users) {
       file { '/etc/clickhouse-server/users.xml':
         content => "<yandex>\r\n\t<users>\r\n\t</users>\r\n</yandex>\r\n",
-        mode    => '0664',
+        mode    => '0400',
         owner   => $clickhouse::server::clickhouse_user,
         group   => $clickhouse::server::clickhouse_group,
       }
@@ -60,7 +60,7 @@ class clickhouse::server::config {
       file { "${clickhouse::server::config_dir}/${clickhouse::server::zookeeper_config_file}":
         owner   => $clickhouse::server::clickhouse_user,
         group   => $clickhouse::server::clickhouse_group,
-        mode    => '0664',
+        mode    => '0400',
         content => epp("${module_name}/zookeeper.xml.epp", {
             'zookeeper_servers' => $clickhouse::server::replication['zookeeper_servers'],
             'secure'            => $clickhouse::server::replication['secure'],
@@ -73,7 +73,7 @@ class clickhouse::server::config {
     if $clickhouse::server::crash_reports {
       file { "${clickhouse::server::config_dir}/crash_reports.xml":
         content => clickhouse_config({ 'send_crash_reports' => $clickhouse::server::crash_reports }),
-        mode    => '0664',
+        mode    => '0400',
         owner   => $clickhouse::server::clickhouse_user,
         group   => $clickhouse::server::clickhouse_group,
       }

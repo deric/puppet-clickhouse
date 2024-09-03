@@ -20,6 +20,10 @@
 #   Whether the Clickhouse Server configurations files should be managd. Defaults to 'true'.
 # @param config_dir
 #   Directory where Clickhouse Server configuration files will be stored. Defaults to '/etc/clickhouse-server/conf.d'.
+# @param datadir_mode
+#   Permissions for data directory
+# @param confdir_mode
+#   Permissions for config directory
 # @param users_dir
 #   Directory where Clickhouse Server user configuration files will be stored. Defaults to '/etc/clickhouse-server/users.d'.
 # @param dict_dir
@@ -85,34 +89,36 @@ class clickhouse::server (
   Array[String] $package_install_options,
 
   # Configuration
-  Boolean $manage_config                        = $clickhouse::params::manage_config,
-  Stdlib::Unixpath $main_dir                    = $clickhouse::params::main_dir,
-  Stdlib::Unixpath $config_dir                  = $clickhouse::params::config_dir,
-  Stdlib::Unixpath $users_dir                   = $clickhouse::params::users_dir,
-  Stdlib::Unixpath $dict_dir                    = $clickhouse::params::dict_dir,
-  Stdlib::Unixpath $clickhouse_datadir          = $clickhouse::params::clickhouse_datadir,
-  Stdlib::Unixpath $clickhouse_tmpdir           = $clickhouse::params::clickhouse_tmpdir,
-  String $clickhouse_user                       = $clickhouse::params::clickhouse_user,
-  String $clickhouse_group                      = $clickhouse::params::clickhouse_group,
-  Boolean $keep_default_users                   = $clickhouse::params::keep_default_users,
-  Hash[String, Any] $override_options           = {},
-  String $config_file                           = $clickhouse::params::config_file,
-  String $profiles_file                         = $clickhouse::params::profiles_file,
-  String $quotas_file                           = $clickhouse::params::quotas_file,
-  String $macros_file                           = $clickhouse::params::macros_file,
-  String $zookeeper_config_file                 = $clickhouse::params::zookeeper_config_file,
-  String $remote_servers_file                   = $clickhouse::params::remote_servers_file,
-  String $dict_source_folder                    = "puppet:///modules/${module_name}",
-  Boolean $install_client                       = $clickhouse::params::install_client,
+  Boolean $manage_config,
+  Stdlib::Unixpath $main_dir,
+  Stdlib::Unixpath $config_dir,
+  Stdlib::Unixpath $users_dir,
+  Stdlib::Unixpath $dict_dir,
+  Stdlib::Unixpath $clickhouse_datadir,
+  Stdlib::Unixpath $clickhouse_tmpdir,
+  String $clickhouse_user,
+  String $clickhouse_group,
+  Boolean $keep_default_users,
+  String $config_file,
+  String $profiles_file,
+  String $quotas_file,
+  String $macros_file,
+  String $zookeeper_config_file,
+  String $remote_servers_file,
+  Boolean $install_client,
+  String $datadir_mode,
+  String $confdir_mode,
 
 # Service
-  String $service_name                    = $clickhouse::params::service_name,
-  Stdlib::Ensure::Service $service_ensure = $clickhouse::params::service_ensure,
-  Boolean $service_enabled                = $clickhouse::params::service_enabled,
-  Boolean $manage_service                 = $clickhouse::params::manage_service,
-  Boolean $manage_systemd                 = $clickhouse::params::manage_systemd,
-  Boolean $restart                        = $clickhouse::params::restart,
+  String $service_name,
+  Stdlib::Ensure::Service $service_ensure,
+  Boolean $service_enabled,
+  Boolean $manage_service,
+  Boolean $manage_systemd,
+  Boolean $restart,
 
+  Hash[String, Any] $override_options = {},
+  String $dict_source_folder = "puppet:///modules/${module_name}",
 # Additional configuration
   Optional[Clickhouse::Clickhouse_users] $users                             = undef,
   Optional[Hash[String, Hash[String, Any]]] $profiles                       = undef,
