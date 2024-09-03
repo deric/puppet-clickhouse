@@ -133,10 +133,6 @@ class clickhouse::server (
     -> Class['clickhouse::server::install']
   }
 
-  if $install_client {
-    include clickhouse::client
-  }
-
   if $restart {
     Class['clickhouse::server::config']
     ~> Class['clickhouse::server::service']
@@ -146,6 +142,12 @@ class clickhouse::server (
   include clickhouse::server::config
   include clickhouse::server::resources
   include clickhouse::server::service
+
+  if $install_client {
+    include clickhouse::client
+    Class['clickhouse::server::install']
+    -> Class['clickhouse::client']
+  }
 
   Class['clickhouse::server::install']
   -> Class['clickhouse::server::config']

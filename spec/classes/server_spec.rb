@@ -86,6 +86,7 @@ describe 'clickhouse::server' do
       end
 
       it { is_expected.to contain_package('clickhouse-server').with(ensure: '24.8.2.3') }
+      it { is_expected.to contain_package('clickhouse-common-static').with(ensure: '24.8.2.3') }
     end
 
     context 'with manage_package set to false' do

@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
  - Feat: Manage `clickhouse-common-static` package and its version (allow downgrades/upgrades to specific version)
  - BC: removed `clickhouse::server::client_*` parameters, all are remain available via `clickhouse::client::*` namespace
  - Remove support for old systems
+ - Ensure correct resources ordering
 
 [Full changes](https://github.com/deric/puppet-clickhouse/compare/v2.1.0...v3.0.0)
 
