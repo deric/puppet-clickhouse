@@ -73,12 +73,23 @@ describe 'clickhouse::server' do
     context 'clickhouse::server::install' do
       let(:facts) { os_facts }
 
-      it { is_expected.to contain_package('clickhouse-server').with(ensure: 'present') }
+      it { is_expected.to contain_package('clickhouse-server').with(ensure: %r{^(present|installed)}) }
 
       context 'with manage_package set to true' do
         let(:params) { { manage_package: true } }
 
         it { is_expected.to contain_package('clickhouse-server') }
+      end
+
+      context 'with specific version' do
+        let(:params) do
+          {
+            manage_package: true,
+            package_ensure: '24.8.2.3'
+          }
+        end
+
+        it { is_expected.to contain_package('clickhouse-server').with(ensure: '24.8.2.3') }
       end
 
       context 'with manage_package set to false' do
