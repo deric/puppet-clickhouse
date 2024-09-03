@@ -6,7 +6,8 @@
 class clickhouse::repo {
   case $facts['os']['family'] {
     'Debian': {
-      apt::keyring { 'clickhouse-keyring.gpg':
+      # `*.asc` for ASCII armored keys
+      apt::keyring { 'clickhouse-keyring.asc':
         dir    => '/usr/share/keyrings',
         source => 'https://packages.clickhouse.com/rpm/lts/repodata/repomd.xml.key',
       }
@@ -15,7 +16,7 @@ class clickhouse::repo {
         location => 'https://packages.clickhouse.com/deb',
         release  => 'stable main',
         repos    => '',
-        keyring  => '/usr/share/keyrings/clickhouse-keyring.gpg',
+        keyring  => '/usr/share/keyrings/clickhouse-keyring.asc',
       }
     }
     'RedHat': {
