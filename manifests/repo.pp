@@ -11,8 +11,8 @@ class clickhouse::repo {
         release  => 'stable main',
         repos    => '',
         key      => {
-          id     => '3A9EA1193A97B548BE1457D48919F6BD2B48D754',
-          server => 'hkp://keyserver.ubuntu.com:80',
+          name   => 'clickhouse-keyring.gpg',
+          source => 'https://packages.clickhouse.com/rpm/lts/repodata/repomd.xml.key',
         },
       }
     }

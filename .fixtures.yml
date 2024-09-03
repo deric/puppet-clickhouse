@@ -6,6 +6,6 @@ fixtures:
       ref: 9.2.0
     stdlib:
       repo: "puppetlabs/stdlib"
-      ref: 9.4.1
+      # ref: 9.0.0
     yumrepo_core: "puppetlabs/yumrepo_core"
 
