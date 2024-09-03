@@ -7,8 +7,12 @@ All notable changes to this project will be documented in this file.
 
  - BC: replace `clickhouse::params` class by Hiera
  - BC: `clickhouse::server::manage_repo` renamed to `clickhouse::manage_repo`
- - Switch to modern apt GPG keyrings
- - Manage `clickhouse-common-static` package and its version (allow downgrades/upgrades to specific version)
+ - Feat: switch to modern apt GPG keyrings
+ - Feat: Manage `clickhouse-common-static` package and its version (allow downgrades/upgrades to specific version)
+ - BC: removed `clickhouse::server::client_*` parameters, all are remain available via `clickhouse::client::*` namespace
+ - Remove support for old systems
+
+[Full changes](https://github.com/deric/puppet-clickhouse/compare/v2.1.0...v3.0.0)
 
 ## Release 2.1.0 [2024-06-28]
 
