@@ -7,8 +7,6 @@
 #     package_ensure => '19.1.6-1.el7',
 #   }
 #
-# @param manage_repo
-#   Whether to install Clickhouse repository. Defaults to 'true'.
 # @param package_name
 #   Name of Clickhouse Server package to install. Defaults to 'clickhouse-server'.
 # @param package_ensure
@@ -17,15 +15,6 @@
 # @param manage_package
 #   Whether to manage Clickhouse Server package. Defaults to 'true'.
 # @param package_install_options
-#   Array of install options for managed package resources. Appropriate options are passed to package manager.
-# @param client_package_name
-#   Name of Clickhouse Client package to install. Defaults to 'clickhouse-client'.
-# @param client_package_ensure
-#   Whether the Clickhouse Client package should be present, absent or specific version.
-#   Valid values are 'present', 'absent' or 'x.y.z'. Defaults to 'present'.
-# @param client_manage_package
-#   Whether to manage Clickhouse Client package. Defaults to 'true'.
-# @param client_package_install_options
 #   Array of install options for managed package resources. Appropriate options are passed to package manager.
 # @param manage_config
 #   Whether the Clickhouse Server configurations files should be managd. Defaults to 'true'.
@@ -89,22 +78,13 @@
 # @param main_dir
 # @param manage_systemd
 class clickhouse::server (
-# Repository
-  Boolean $manage_repo = $clickhouse::params::manage_repo,
+  # Server package
+  String $package_name,
+  String $package_ensure,
+  Boolean $manage_package,
+  Array[String] $package_install_options,
 
-# Server package
-  String $package_name                   = $clickhouse::params::package_name,
-  String $package_ensure                 = $clickhouse::params::package_ensure,
-  Boolean $manage_package                = $clickhouse::params::manage_package,
-  Array[String] $package_install_options = $clickhouse::params::package_install_options,
-
-# Client package
-  String $client_package_name                   = $clickhouse::params::client_package_name,
-  String $client_package_ensure                 = $clickhouse::params::client_package_ensure,
-  Boolean $client_manage_package                = $clickhouse::params::client_manage_package,
-  Array[String] $client_package_install_options = $clickhouse::params::client_package_install_options,
-
-# Configuration
+  # Configuration
   Boolean $manage_config                        = $clickhouse::params::manage_config,
   Stdlib::Unixpath $main_dir                    = $clickhouse::params::main_dir,
   Stdlib::Unixpath $config_dir                  = $clickhouse::params::config_dir,
@@ -122,7 +102,7 @@ class clickhouse::server (
   String $macros_file                           = $clickhouse::params::macros_file,
   String $zookeeper_config_file                 = $clickhouse::params::zookeeper_config_file,
   String $remote_servers_file                   = $clickhouse::params::remote_servers_file,
-  String $dict_source_folder                    = $clickhouse::params::dict_source_folder,
+  String $dict_source_folder                    = "puppet:///modules/${module_name}",
   Boolean $install_client                       = $clickhouse::params::install_client,
 
 # Service
@@ -141,19 +121,14 @@ class clickhouse::server (
   Optional[Clickhouse::Clickhouse_replication] $replication                 = undef,
   Optional[Clickhouse::Clickhouse_remote_servers] $remote_servers           = undef,
   Optional[Clickhouse::Clickhouse_crash_reports] $crash_reports             = undef,
-) inherits clickhouse::params {
-  if $manage_repo {
-    include clickhouse::repo
+) inherits clickhouse {
+  if $clickhouse::manage_repo {
+    Class['clickhouse::repo']
+    -> Class['clickhouse::server::install']
   }
 
   if $install_client {
-    class { 'clickhouse::client':
-      manage_repo             => $manage_repo,
-      package_name            => $client_package_name,
-      package_ensure          => $client_package_ensure,
-      manage_package          => $client_manage_package,
-      package_install_options => $client_package_install_options,
-    }
+    include clickhouse::client
   }
 
   if $restart {
@@ -161,8 +136,13 @@ class clickhouse::server (
     ~> Class['clickhouse::server::service']
   }
 
-  contain clickhouse::server::install
-  contain clickhouse::server::config
-  contain clickhouse::server::resources
-  contain clickhouse::server::service
+  include clickhouse::server::install
+  include clickhouse::server::config
+  include clickhouse::server::resources
+  include clickhouse::server::service
+
+  Class['clickhouse::server::install']
+  -> Class['clickhouse::server::config']
+  -> Class['clickhouse::server::resources']
+  -> Class['clickhouse::server::service']
 }

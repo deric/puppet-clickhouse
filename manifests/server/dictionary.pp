@@ -1,10 +1,9 @@
-# @summary 
-#   Create and manage Clickhouse dictionary.
+# @summary Create and manage Clickhouse dictionary.
 #
 # @see https://clickhouse.yandex/docs/en/query_language/dicts/external_dicts/
 #
 # @example Create a basic Clickhouse dictionary:
-#   clickhouse::server::dictionary { 'countries.xml': 
+#   clickhouse::server::dictionary { 'countries.xml':
 #     source => 'puppet:///modules/clickhouse/dictionaries',
 #   }
 #

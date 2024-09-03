@@ -8,7 +8,7 @@ describe 'clickhouse::repo' do
           family: 'Debian',
           name: 'Debian',
           release: {
-            major: '9',
+            major: '12',
           },
         },
         osfamily: 'Debian',

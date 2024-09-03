@@ -7,8 +7,6 @@
 #     package_ensure => 'present',
 #   }
 #
-# @param manage_repo
-#   Whether to install Clickhouse repository. Defaults to 'true'.
 # @param package_name
 #   Name of Clickhouse client package to install. Defaults to 'clickhouse-client'.
 # @param package_ensure
@@ -20,15 +18,21 @@
 #   Array of install options for managed package resources. Appropriate options are passed to package manager.
 #
 class clickhouse::client (
-  Boolean $manage_repo                   = $clickhouse::params::manage_repo,
-  String $package_name                   = $clickhouse::params::client_package_name,
-  String $package_ensure                 = $clickhouse::params::client_package_ensure,
-  Boolean $manage_package                = $clickhouse::params::client_manage_package,
-  Array[String] $package_install_options = $clickhouse::params::client_package_install_options,
-) inherits clickhouse::params {
-  if $manage_repo {
-    include clickhouse::repo
-  }
+  String $package_name,
+  String $package_ensure,
+  Boolean $manage_package,
+  Array[String] $package_install_options,
+) inherits clickhouse {
+  if $clickhouse::client::manage_package {
+    package { 'clickhouse-common-static':
+      ensure          => $clickhouse::client::package_ensure,
+      install_options => $clickhouse::client::package_install_options,
+    }
 
-  contain clickhouse::client::install
+    package { $clickhouse::client::package_name:
+      ensure          => $clickhouse::client::package_ensure,
+      install_options => $clickhouse::client::package_install_options,
+      require         => Package['clickhouse-common-static'],
+    }
+  }
 }

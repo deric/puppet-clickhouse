@@ -1,1 +1,42 @@
---- {}
+---
+# package repository
+clickhouse::manage_repo: true
+
+# client
+clickhouse::client::manage_package: true
+clickhouse::client::package_ensure: installed
+clickhouse::client::package_install_options: []
+clickhouse::client::package_name: clickhouse-client
+
+# server
+clickhouse::server::manage_package: true
+clickhouse::server::package_ensure: installed
+clickhouse::server::package_install_options: []
+clickhouse::server::package_name: clickhouse-server
+
+# Configuration
+clickhouse::server::manage_config: true
+clickhouse::server::main_dir: '/etc/clickhouse-server'
+clickhouse::server::config_dir: '/etc/clickhouse-server/conf.d'
+clickhouse::server::users_dir: '/etc/clickhouse-server/users.d'
+clickhouse::server::dict_dir: '/etc/clickhouse-server/dict'
+clickhouse::server::clickhouse_user: 'clickhouse'
+clickhouse::server::clickhouse_group: 'clickhouse'
+clickhouse::server::clickhouse_datadir: '/var/lib/clickhouse/'
+clickhouse::server::clickhouse_tmpdir: '/var/lib/clickhouse/tmp/'
+clickhouse::server::keep_default_users: true
+clickhouse::server::config_file: 'config.xml'
+clickhouse::server::profiles_file: 'profiles.xml'
+clickhouse::server::quotas_file: 'quotas.xml'
+clickhouse::server::macros_file: 'macros.xml'
+clickhouse::server::zookeeper_config_file: 'zookeeper.xml'
+clickhouse::server::remote_servers_file: 'remote_servers.xml'
+clickhouse::server::install_client : true
+
+# Service
+clickhouse::server::service_name: clickhouse-server
+clickhouse::server::service_ensure: running
+clickhouse::server::service_enabled: true
+clickhouse::server::manage_service: true
+clickhouse::server::manage_systemd: true
+clickhouse::server::restart: false

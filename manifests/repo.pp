@@ -5,10 +5,6 @@
 #   include clickhouse::repo
 class clickhouse::repo {
   case $facts['os']['family'] {
-    default: {
-      fail("${facts['os']['family']} is not supported (yet).")
-    }
-
     'Debian': {
       apt::source { 'clickhouse':
         location => 'https://packages.clickhouse.com/deb',
@@ -30,6 +26,9 @@ class clickhouse::repo {
         repo_gpgcheck => 1,
         gpgkey        => 'https://packages.clickhouse.com/rpm/stable/repodata/repomd.xml.key',
       }
+    }
+    default: {
+      fail("${facts['os']['family']} is not supported (yet).")
     }
   }
 }
