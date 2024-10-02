@@ -139,7 +139,7 @@ class { 'clickhouse::server':
       password => '02472d6a1e23f73b37481bbd67949a5d16cbaf3d71770696f20a0cd773a2e682',
       quota    => 'production',
       profile  => 'production',
-      network  => {
+      networks  => {
         ip => ['::/0'],
       },
     },

@@ -26,6 +26,10 @@
 #   Array of databases, the user will have permissions to access.
 # @param networks
 #   Clickhouse::Clickhouse_networks (see types/clickhouse_networks.pp) Restrictions for ip\hosts for user.
+# @param access_management
+#  Enables or disables using of SQL-driven access control and account management for the user.
+# @param grants
+# Allows to grant any rights to selected user.
 # @param users_dir
 #   Path to directory, where user configuration will be stored. Defaults to '/etc/clickhouse-server/conf.d/'
 # @param user_file_owner
@@ -44,6 +48,8 @@ define clickhouse::server::user (
   Stdlib::Unixpath $users_dir                         = $clickhouse::server::config_dir,
   String $user_file_owner                             = $clickhouse::server::clickhouse_user,
   String $user_file_group                             = $clickhouse::server::clickhouse_group,
+  Optional[Integer[0,1]] $access_management           = undef,
+  Optional[Array[String]] $grants                     = undef,
   Enum['present', 'absent'] $ensure                   = 'present',
 ) {
   if $password {
@@ -62,12 +68,14 @@ define clickhouse::server::user (
     group   => $user_file_group,
     mode    => '0664',
     content => epp("${module_name}/user.xml.epp", {
-        'user'            => $title,
-        'password'        => $real_password,
-        'quota'           => $quota,
-        'profile'         => $profile,
-        'allow_databases' => $allow_databases,
-        'networks'        => $networks,
+        'user'              => $title,
+        'password'          => $real_password,
+        'quota'             => $quota,
+        'profile'           => $profile,
+        'allow_databases'   => $allow_databases,
+        'networks'          => $networks,
+        'access_management' => $access_management,
+        'grants'            => $grants,
     }),
   }
 }
