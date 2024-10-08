@@ -902,6 +902,8 @@ The following parameters are available in the `clickhouse::server::user` defined
 * [`profile`](#-clickhouse--server--user--profile)
 * [`allow_databases`](#-clickhouse--server--user--allow_databases)
 * [`networks`](#-clickhouse--server--user--networks)
+* [`access_management`](#-clickhouse--server--access_management)
+* [`grants`](#-clickhouse--server--grants)
 * [`users_dir`](#-clickhouse--server--user--users_dir)
 * [`user_file_owner`](#-clickhouse--server--user--user_file_owner)
 * [`user_file_group`](#-clickhouse--server--user--user_file_group)
@@ -948,6 +950,23 @@ Default value: `undef`
 Data type: `Optional[Clickhouse::Clickhouse_networks]`
 
 Clickhouse::Clickhouse_networks (see types/clickhouse_networks.pp) Restrictions for ip\hosts for user.
+
+Default value: `undef`
+
+##### <a name="-clickhouse--server--user--access_management"></a>`access_management`
+
+Data type: `Optional[Integer[0,1]]`
+
+This setting enables or disables using of SQL-driven access control and account management for the user.
+
+Default value: `undef`
+
+##### <a name="-clickhouse--server--user--grants"></a>`grants`
+
+Data type: `Optional[Array[String]]`
+
+This setting allows to grant any rights to selected user.
+Each element of the list should be GRANT query without any grantees specified.
 
 Default value: `undef`
 

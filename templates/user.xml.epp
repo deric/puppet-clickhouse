@@ -26,6 +26,16 @@
 <% } -%>
       </networks>
 <% } -%>
+<% if $access_management { -%>
+      <access_management><%= $access_management %></access_management>
+<% } -%>
+<% if $grants { -%>
+      <grants>
+<% $grants.each |$query| { -%>
+        <query><%= $query %></query>
+<% } -%>
+      </grants>
+<% } -%>
     </<%= $user %>>
   </users>
 </yandex>
