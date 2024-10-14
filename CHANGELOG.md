@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 3.1.0 [2024-10-14]
+
+- feat(users): add options for user management (#3)
+
+[Full changes](https://github.com/deric/puppet-clickhouse/compare/v3.0.0...v3.1.0)
 
 ## Release 3.0.0 [2024-09-03]
 
