@@ -25,8 +25,8 @@
     {
       "operatingsystem": "CentOS",
       "operatingsystemrelease": [
-        "7",
-        "8"
+        "8",
+        "9"
       ]
     },
     {
@@ -41,7 +41,8 @@
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
         "11",
-        "12"
+        "12",
+        "13"
       ]
     },
     {
@@ -59,7 +60,7 @@
       "version_requirement": ">= 7.0.0 < 9.0.0"
     }
   ],
-  "pdk-version": "3.3.0",
+  "pdk-version": "3.4.0",
   "template-url": "https://github.com/puppetlabs/pdk-templates.git#3.2.0",
   "template-ref": "tags/3.2.0-0-gb257ef1"
 }
