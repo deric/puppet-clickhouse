@@ -1,4 +1,4 @@
-# Puppet provider for mysql
+# Puppet provider for clickhouse
 class Puppet::Provider::Clickhouse < Puppet::Provider
   # Without initvars commands won't work.
   initvars
@@ -10,6 +10,14 @@ class Puppet::Provider::Clickhouse < Puppet::Provider
   commands :clickhouse_raw => 'clickhouse-client'
 
   def self.clickhouse_caller(text_of_sql)
-    clickhouse_raw(['-c', '/root/.clickhouse-client/config.xml', '-q', text_of_sql].flatten.compact)
+    opts = []
+    if File.file?('/root/.clickhouse-client/config.xml')
+      opts = ['-c', '/root/.clickhouse-client/config.xml']
+    elsif File.file?('/root/.clickhouse-client/config.yml')
+      opts = ['-c', '/root/.clickhouse-client/config.yml']
+    end
+    opts.push('-q')
+    opts.push(text_of_sql)
+    clickhouse_raw(opts.flatten.compact)
   end
 end
