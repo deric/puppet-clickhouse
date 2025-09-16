@@ -6,7 +6,7 @@ Puppet::Type.type(:clickhouse_database).provide(:clickhouse, parent: Puppet::Pro
 
   def self.instances
     clickhouse_caller('show databases').split("\n").map do |name|
-      new(name: name,
+      new(name:,
           ensure: :present)
     end
   end
