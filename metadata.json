@@ -14,7 +14,7 @@
     },
     {
       "name": "puppetlabs-apt",
-      "version_requirement": ">= 9.2.0 < 10.0.0"
+      "version_requirement": ">= 9.2.0 < 12.0.0"
     },
     {
       "name": "puppetlabs-yumrepo_core",
@@ -57,7 +57,7 @@
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": ">= 7.0.0 < 9.0.0"
+      "version_requirement": ">= 8.0.0 < 9.0.0"
     }
   ],
   "pdk-version": "3.4.0",

@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## Release 4.0.0 [UNRELEASED]
+
+- [feat: Use config.yml file if exists #4](https://github.com/deric/puppet-clickhouse/pull/4)
+- Debian 13 support
+- CentOS 9 support
+- Drop CentOS 7
+- allow `puppetlabs/apt` >= 11
+- Drop Puppet 7 support
+
+[Full changes](https://github.com/deric/puppet-clickhouse/compare/v3.1.0...v4.0.0)
+
+
 ## Release 3.1.0 [2024-10-14]
 
 - feat(users): add options for user management (#3)
