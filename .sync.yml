@@ -11,8 +11,6 @@ Gemfile:
   required:
     ':dependencies':
       - gem: xml-simple
-    ':release':
-      - gem: 'puppet-blacksmith'
 .gitignore:
   paths:
     - '.tmp/'
