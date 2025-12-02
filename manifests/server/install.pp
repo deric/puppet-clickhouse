@@ -4,8 +4,7 @@
 #
 class clickhouse::server::install {
   if $clickhouse::server::manage_package {
-
-    if $apt_pin {
+    if $clickhouse::server::apt_pin {
       case $facts['os']['family'] {
         'Debian': {
           if $clickhouse::server::apt_pin {

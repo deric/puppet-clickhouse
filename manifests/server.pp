@@ -81,6 +81,8 @@
 # @param crash_reports
 # @param main_dir
 # @param manage_systemd
+# @param apt_pin which version to pin to
+# @param pin_priority Debian list priority
 class clickhouse::server (
   # Server package
   String $package_name,
