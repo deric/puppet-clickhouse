@@ -42,7 +42,7 @@ describe 'clickhouse::server' do
 
   context 'with apt_pin' do
     let(:facts) { os_facts }
-    let(:params) { { apt_pin:  '25.8.11.66'} }
+    let(:params) { { apt_pin: '25.8.11.66' } }
 
     it { is_expected.to contain_class('clickhouse::server::config').that_notifies('Class[clickhouse::server::service]') }
   end
