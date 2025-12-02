@@ -15,7 +15,7 @@ class clickhouse::repo {
       apt::source { 'clickhouse':
         location => 'https://packages.clickhouse.com/deb',
         release  => 'stable main',
-        repos    => '',
+        repos    => [''],
         keyring  => '/usr/share/keyrings/clickhouse-keyring.asc',
       }
     }
