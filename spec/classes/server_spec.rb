@@ -44,7 +44,8 @@ describe 'clickhouse::server' do
     let(:facts) { os_facts }
     let(:params) { { apt_pin: '25.8.11.66' } }
 
-    it { is_expected.to contain_class('clickhouse::server::config').that_notifies('Class[clickhouse::server::service]') }
+    it { is_expected.to contain_package('clickhouse-server').with(ensure: %r{^(present|installed)}) }
+    it { is_expected.to contain_package('clickhouse-common-static').with(ensure: %r{^(present|installed)}) }
   end
 
   context 'with systemd config' do
