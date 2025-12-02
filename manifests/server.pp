@@ -127,6 +127,8 @@ class clickhouse::server (
   Optional[Clickhouse::Clickhouse_replication] $replication                 = undef,
   Optional[Clickhouse::Clickhouse_remote_servers] $remote_servers           = undef,
   Optional[Clickhouse::Clickhouse_crash_reports] $crash_reports             = undef,
+  Optional[Integer] $apt_pin = undef,
+  Integer $pin_priority = 1001,
 ) inherits clickhouse {
   if $clickhouse::manage_repo {
     Class['clickhouse::repo']
