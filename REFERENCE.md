@@ -57,12 +57,39 @@ Installs and configures Clickhouse
 The following parameters are available in the `clickhouse` class:
 
 * [`manage_repo`](#-clickhouse--manage_repo)
+* [`apt_pin`](#-clickhouse--apt_pin)
+* [`pin_priority`](#-clickhouse--pin_priority)
+* [`pin_packages`](#-clickhouse--pin_packages)
 
 ##### <a name="-clickhouse--manage_repo"></a>`manage_repo`
 
 Data type: `Boolean`
 
 Whether to install Clickhouse repository.
+
+##### <a name="-clickhouse--apt_pin"></a>`apt_pin`
+
+Data type: `Optional[String]`
+
+which version to pin to
+
+Default value: `undef`
+
+##### <a name="-clickhouse--pin_priority"></a>`pin_priority`
+
+Data type: `Integer`
+
+Debian list priority
+
+Default value: `1001`
+
+##### <a name="-clickhouse--pin_packages"></a>`pin_packages`
+
+Data type: `Array[String]`
+
+which packages should pin apply to
+
+Default value: `['clickhouse-common-static']`
 
 ### <a name="clickhouse--client"></a>`clickhouse::client`
 
@@ -871,7 +898,7 @@ Default value: `{}`
 
 ### <a name="clickhouse--server--user"></a>`clickhouse::server::user`
 
-Create and manage Clickhouse user.
+Allows to grant any rights to selected user.
 
 * **See also**
   * https://clickhouse.yandex/docs/en/operations/access_rights/
@@ -902,8 +929,8 @@ The following parameters are available in the `clickhouse::server::user` defined
 * [`profile`](#-clickhouse--server--user--profile)
 * [`allow_databases`](#-clickhouse--server--user--allow_databases)
 * [`networks`](#-clickhouse--server--user--networks)
-* [`access_management`](#-clickhouse--server--access_management)
-* [`grants`](#-clickhouse--server--grants)
+* [`access_management`](#-clickhouse--server--user--access_management)
+* [`grants`](#-clickhouse--server--user--grants)
 * [`users_dir`](#-clickhouse--server--user--users_dir)
 * [`user_file_owner`](#-clickhouse--server--user--user_file_owner)
 * [`user_file_group`](#-clickhouse--server--user--user_file_group)
@@ -957,7 +984,7 @@ Default value: `undef`
 
 Data type: `Optional[Integer[0,1]]`
 
-This setting enables or disables using of SQL-driven access control and account management for the user.
+Enables or disables using of SQL-driven access control and account management for the user.
 
 Default value: `undef`
 
@@ -965,8 +992,7 @@ Default value: `undef`
 
 Data type: `Optional[Array[String]]`
 
-This setting allows to grant any rights to selected user.
-Each element of the list should be GRANT query without any grantees specified.
+
 
 Default value: `undef`
 
@@ -1156,14 +1182,16 @@ lint:ignore:2sp_soft_tabs
 Alias of
 
 ```puppet
-Hash[String, Struct[{Optional[password]        => String,
-                                                         Optional[quota]           => String,
-                                                         Optional[profile]         => String,
-                                                         Optional[allow_databases] => Array[String],
-                                                         Optional[networks]        => Clickhouse::Clickhouse_networks,
-                                                         Optional[users_dir]       => Stdlib::Unixpath,
-                                                         Optional[user_file_owner] => String,
-                                                         Optional[user_file_group] => String,
-                                                         Optional[ensure]          => String}], 1]
+Hash[String, Struct[{Optional[password]           => String,
+                                                         Optional[quota]              => String,
+                                                         Optional[profile]            => String,
+                                                         Optional[allow_databases]    => Array[String],
+                                                         Optional[networks]           => Clickhouse::Clickhouse_networks,
+                                                         Optional[access_management]  => Integer[0,1],
+                                                         Optional[grants]             => Array[String],
+                                                         Optional[users_dir]          => Stdlib::Unixpath,
+                                                         Optional[user_file_owner]    => String,
+                                                         Optional[user_file_group]    => String,
+                                                         Optional[ensure]             => String}], 1]
 ```
 
