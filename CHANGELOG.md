@@ -11,6 +11,7 @@ All notable changes to this project will be documented in this file.
 - Drop CentOS 7
 - allow `puppetlabs/apt` >= 11
 - Drop Puppet 7 support
+- Support setting apt pin [#5](https://github.com/deric/puppet-clickhouse/pull/5)
 
 [Full changes](https://github.com/deric/puppet-clickhouse/compare/v3.1.0...v4.0.0)
 
