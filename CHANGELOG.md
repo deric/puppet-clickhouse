@@ -3,7 +3,7 @@
 All notable changes to this project will be documented in this file.
 
 
-## Release 4.0.0 [UNRELEASED]
+## Release 4.0.0 [2025-12-03]
 
 - [feat: Use config.yml file if exists #4](https://github.com/deric/puppet-clickhouse/pull/4)
 - Debian 13 support
