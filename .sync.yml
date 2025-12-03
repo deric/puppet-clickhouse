@@ -9,7 +9,7 @@ appveyor.yml:
   unmanaged: true
 Gemfile:
   required:
-    ':dependencies':
+    ':development':
       - gem: xml-simple
 .gitignore:
   paths:
