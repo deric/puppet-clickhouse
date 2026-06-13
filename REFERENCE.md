@@ -206,6 +206,7 @@ The following parameters are available in the `clickhouse::server` class:
 * [`dictionaries`](#-clickhouse--server--dictionaries)
 * [`replication`](#-clickhouse--server--replication)
 * [`remote_servers`](#-clickhouse--server--remote_servers)
+* [`interserver_secret`](#-clickhouse--server--interserver_secret)
 * [`crash_reports`](#-clickhouse--server--crash_reports)
 * [`main_dir`](#-clickhouse--server--main_dir)
 * [`manage_systemd`](#-clickhouse--server--manage_systemd)
@@ -434,6 +435,14 @@ Default value: `undef`
 Data type: `Optional[Clickhouse::Clickhouse_remote_servers]`
 
 Remote server configuration parameters for Distributed engine (see types/clickhouse_remote_servers.pp for data type description), which are passed to clickhouse::server::remote_servers. See https://clickhouse.yandex/docs/en/operations/table_engines/distributed/.
+
+Default value: `undef`
+
+##### <a name="-clickhouse--server--interserver_secret"></a>`interserver_secret`
+
+Data type: `Optional[String, Sensitive[String]]`
+
+Internal replication secret
 
 Default value: `undef`
 
@@ -851,6 +860,7 @@ The following parameters are available in the `clickhouse::server::remote_server
 * [`remote_servers_file_group`](#-clickhouse--server--remote_servers--remote_servers_file_group)
 * [`ensure`](#-clickhouse--server--remote_servers--ensure)
 * [`remote_servers`](#-clickhouse--server--remote_servers--remote_servers)
+* [`interserver_secret`](#-clickhouse--server--remote_servers--interserver_secret)
 
 ##### <a name="-clickhouse--server--remote_servers--name"></a>`name`
 
@@ -895,6 +905,14 @@ Data type: `Clickhouse::Clickhouse_remote_servers`
 Remote server configurations (see types/clickhouse_remote_servers.pp for data type description).
 
 Default value: `{}`
+
+##### <a name="-clickhouse--server--remote_servers--interserver_secret"></a>`interserver_secret`
+
+Data type: `Optional[String, Sensitive[String]]`
+
+Internal replication secret
+
+Default value: `undef`
 
 ### <a name="clickhouse--server--user"></a>`clickhouse::server::user`
 

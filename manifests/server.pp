@@ -78,6 +78,7 @@
 #   Replication configuration parameters (see types/clickhouse_replication.pp for data type description). See https://clickhouse.yandex/docs/en/operations/table_engines/replication/.
 # @param remote_servers
 #   Remote server configuration parameters for Distributed engine (see types/clickhouse_remote_servers.pp for data type description), which are passed to clickhouse::server::remote_servers. See https://clickhouse.yandex/docs/en/operations/table_engines/distributed/.
+# @param interserver_secret Internal replication secret
 # @param crash_reports
 # @param main_dir
 # @param manage_systemd
@@ -126,6 +127,7 @@ class clickhouse::server (
   Optional[Array[String]] $dictionaries                                     = undef,
   Optional[Clickhouse::Clickhouse_replication] $replication                 = undef,
   Optional[Clickhouse::Clickhouse_remote_servers] $remote_servers           = undef,
+  Optional[Variant[String, Sensitive[String]]] $interserver_secret          = undef,
   Optional[Clickhouse::Clickhouse_crash_reports] $crash_reports             = undef,
 ) inherits clickhouse {
   if $clickhouse::manage_repo {

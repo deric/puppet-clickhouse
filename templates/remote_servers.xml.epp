@@ -1,4 +1,7 @@
 <yandex>
+<% if $interserver_secret { -%>
+  <interserver_secret><%= $interserver_secret %></interserver_secret>
+<% } -%>
   <remote_servers>
 <% $remote_servers.each |$server, $shard| { -%>
     <<%= $server %>>

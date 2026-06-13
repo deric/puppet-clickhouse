@@ -36,7 +36,8 @@ class clickhouse::server::resources {
 
   if $clickhouse::server::remote_servers {
     clickhouse::server::remote_servers { $clickhouse::server::remote_servers_file:
-      remote_servers => $clickhouse::server::remote_servers,
+      remote_servers     => $clickhouse::server::remote_servers,
+      interserver_secret => $clickhouse::server::interserver_secret,
     }
   }
 }
