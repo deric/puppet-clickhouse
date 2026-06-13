@@ -4,7 +4,7 @@
 # @see https://clickhouse.yandex/docs/en/operations/table_engines/distributed/
 #
 # @example Create three Clickhouse clusters. Replicated - one shard with two replicas, segmented - two shards without replicas, segmented_replicated - two shards, each having two replicas.
-#   clickhouse::server::remote_servers { 'remote_servers.xml': 
+#   clickhouse::server::remote_servers { 'remote_servers.xml':
 #     remote_servers_file => '/etc/clickhouse-server/conf.d',
 #     remote_servers => {
 #       replicated           => {
@@ -49,13 +49,15 @@
 #   Specifies whether to create remote servers file. Valid values are 'present', 'absent'. Defaults to 'present'.
 # @param remote_servers
 #   Remote server configurations (see types/clickhouse_remote_servers.pp for data type description).
+# @param interserver_secret Internal replication secret
 #
 define clickhouse::server::remote_servers (
-  Stdlib::Unixpath $config_dir                          = $clickhouse::server::config_dir,
-  String $remote_servers_file_owner                     = $clickhouse::server::clickhouse_user,
-  String $remote_servers_file_group                     = $clickhouse::server::clickhouse_group,
-  Enum['present', 'absent'] $ensure                     = 'present',
-  Clickhouse::Clickhouse_remote_servers $remote_servers = {},
+  Stdlib::Unixpath $config_dir                            = $clickhouse::server::config_dir,
+  String $remote_servers_file_owner                       = $clickhouse::server::clickhouse_user,
+  String $remote_servers_file_group                       = $clickhouse::server::clickhouse_group,
+  Enum['present', 'absent'] $ensure                       = 'present',
+  Clickhouse::Clickhouse_remote_servers $remote_servers   = {},
+  Optional[String, Sensitive[String]] $interserver_secret = undef,
 ) {
   file { "${config_dir}/${title}":
     ensure  => $ensure,
@@ -63,7 +65,8 @@ define clickhouse::server::remote_servers (
     group   => $remote_servers_file_group,
     mode    => '0664',
     content => epp("${module_name}/remote_servers.xml.epp", {
-        'remote_servers' => $remote_servers,
+        'remote_servers'     => $remote_servers,
+        'interserver_secret' => $interserver_secret,
     }),
   }
 }

@@ -811,6 +811,7 @@ EOS
     let(:facts) { os_facts }
     let(:params) do
       {
+        interserver_secret: 'verySecretString',
         remote_servers: {
           'replicated' => {
             'shard' => {
@@ -833,6 +834,7 @@ EOS
 
     remote_servers_conf = <<-EOS
 <yandex>
+  <interserver_secret>verySecretString</interserver_secret>
   <remote_servers>
     <replicated>
       <shard>
