@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 4.1.0 [2026-06-13]
+
+- Allow setting `interserver_secret` [#6](https://github.com/deric/puppet-clickhouse/pull/6)
+
+[Full changes](https://github.com/deric/puppet-clickhouse/compare/v4.0.0...v4.1.0)
+
+
 
 ## Release 4.0.0 [2025-12-03]
 
