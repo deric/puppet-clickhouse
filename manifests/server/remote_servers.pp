@@ -57,7 +57,7 @@ define clickhouse::server::remote_servers (
   String $remote_servers_file_group                       = $clickhouse::server::clickhouse_group,
   Enum['present', 'absent'] $ensure                       = 'present',
   Clickhouse::Clickhouse_remote_servers $remote_servers   = {},
-  Optional[String, Sensitive[String]] $interserver_secret = undef,
+  Optional[Variant[String, Sensitive[String]]] $interserver_secret = undef,
 ) {
   file { "${config_dir}/${title}":
     ensure  => $ensure,
